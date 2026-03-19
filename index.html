@@ -299,10 +299,24 @@
         </div>
         <select class="speed-select" id="region-select" style="width: 100%; margin-bottom: 8px;">
           <option value="">Choose a region...</option>
-          <option value="kentucky">Kentucky</option>
-          <option value="texas">Texas</option>
-          <option value="france">France</option>
-          <option value="japan">Japan (Honshu)</option>
+          <optgroup label="US States">
+            <option value="kentucky">Kentucky</option>
+            <option value="texas">Texas</option>
+            <option value="california">California</option>
+            <option value="florida">Florida</option>
+            <option value="newyork">New York</option>
+            <option value="colorado">Colorado</option>
+            <option value="hawaii">Hawaii (Big Island)</option>
+          </optgroup>
+          <optgroup label="Countries">
+            <option value="uk">United Kingdom</option>
+            <option value="france">France</option>
+            <option value="italy">Italy</option>
+            <option value="egypt">Egypt</option>
+            <option value="india">India</option>
+            <option value="japan">Japan</option>
+            <option value="australia">Australia</option>
+          </optgroup>
         </select>
         <button class="tool-btn" id="btn-place-region" style="width: 100%; height: auto; padding: 6px; font-size: 0.7rem;">Place at Rover</button>
         <button class="tool-btn" id="btn-clear-region" style="width: 100%; height: auto; padding: 6px; font-size: 0.7rem; margin-top: 4px;">Clear</button>
