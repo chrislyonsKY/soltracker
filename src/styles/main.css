@@ -134,6 +134,15 @@ arcgis-scene {
 }
 .header-btn:hover { background: var(--bg-card); color: var(--text-primary); }
 
+.lang-select {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  background: var(--bg-card); color: var(--text-secondary);
+  border: 1px solid var(--border-subtle); border-radius: 4px;
+  padding: 2px 4px; cursor: pointer; outline: none;
+  font-weight: 600;
+}
+.lang-select:focus { border-color: var(--nasa-cyan-dark); }
+
 /* === GLOBE OVERLAY TOOLS === */
 .globe-tools {
   position: fixed;

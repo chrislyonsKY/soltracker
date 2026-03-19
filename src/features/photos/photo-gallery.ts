@@ -1,9 +1,10 @@
 /**
  * Photo gallery — thumbnail grid synced to sol/position.
- * Subscribes to sol-change events and fetches rover photos.
+ * Uses the new NASA RSS feed / raw image API endpoints.
  */
 import { getPhotos } from "../../services/nasa-api.ts";
-import type { NASAPhoto, SolChangeDetail, RoverName } from "../../types.ts";
+import type { MarsPhoto } from "../../services/nasa-api.ts";
+import type { SolChangeDetail, RoverName } from "../../types.ts";
 
 let currentRover: RoverName = "perseverance";
 let currentSol = 0;
@@ -14,18 +15,14 @@ let debounceTimer: ReturnType<typeof setTimeout> | null = null;
  * Initialize the photo gallery panel.
  */
 export function initPhotoGallery(): void {
-  // Subscribe to sol-change events (debounced 500ms)
   document.addEventListener("sol-change", ((e: CustomEvent<SolChangeDetail>) => {
     currentRover = e.detail.rover;
     currentSol = e.detail.sol;
 
     if (debounceTimer) clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      fetchAndRender();
-    }, 500);
+    debounceTimer = setTimeout(() => fetchAndRender(), 500);
   }) as EventListener);
 
-  // Wire photo lightbox close
   const dialog = document.getElementById("photo-dialog");
   dialog?.addEventListener("calciteDialogClose", () => {
     const img = document.getElementById("lightbox-img") as HTMLImageElement | null;
@@ -33,33 +30,32 @@ export function initPhotoGallery(): void {
   });
 }
 
-/** Set camera filter (called by camera-filter module). */
+/** Set camera filter. */
 export function setPhotoCamera(camera: string | undefined): void {
   currentCamera = camera;
   fetchAndRender();
 }
 
-/** Fetch and render photos for the current rover/sol/camera. */
+/** Fetch and render photos for current state. */
 async function fetchAndRender(): Promise<void> {
   const gallery = document.getElementById("photo-gallery");
   if (!gallery) return;
 
-  // Show loading state
   gallery.innerHTML = '<p class="photo-loading">Loading photos...</p>';
 
   try {
     const photos = await getPhotos(currentRover, currentSol, currentCamera);
     renderPhotos(gallery, photos);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Failed to load photos";
-    gallery.innerHTML = `<p class="photo-error">${message}</p>`;
+    const msg = err instanceof Error ? err.message : "Failed to load photos";
+    gallery.innerHTML = `<p class="photo-error">${msg}</p>`;
   }
 }
 
-/** Render photo thumbnails into the gallery container. */
-function renderPhotos(container: HTMLElement, photos: NASAPhoto[]): void {
+/** Render photo thumbnails. */
+function renderPhotos(container: HTMLElement, photos: MarsPhoto[]): void {
   if (photos.length === 0) {
-    container.innerHTML = '<p class="photo-empty">No photos available for this sol</p>';
+    container.innerHTML = '<p class="photo-empty">No photos for this sol</p>';
     return;
   }
 
@@ -68,30 +64,28 @@ function renderPhotos(container: HTMLElement, photos: NASAPhoto[]): void {
     const thumb = document.createElement("button");
     thumb.type = "button";
     thumb.className = "photo-thumb";
-    thumb.setAttribute("aria-label", `${photo.camera.full_name} photo from Sol ${photo.sol}`);
+    thumb.setAttribute("aria-label", `${photo.camera || "Photo"} from Sol ${photo.sol}`);
     thumb.innerHTML = `
-      <img src="${photo.img_src}" alt="${photo.camera.full_name} — Sol ${photo.sol}" loading="lazy" />
-      <span class="photo-cam-label">${photo.camera.name}</span>
+      <img src="${photo.imgThumb}" alt="${photo.cameraFullName} — Sol ${photo.sol}" loading="lazy" />
+      <span class="photo-cam-label">${photo.camera || "IMG"}</span>
     `;
     thumb.addEventListener("click", () => openLightbox(photo));
     container.appendChild(thumb);
   }
 }
 
-/** Open the photo lightbox dialog with full-res image. */
-function openLightbox(photo: NASAPhoto): void {
+/** Open photo in lightbox dialog. */
+function openLightbox(photo: MarsPhoto): void {
   const dialog = document.getElementById("photo-dialog");
   const img = document.getElementById("lightbox-img") as HTMLImageElement | null;
   const meta = document.getElementById("lightbox-meta");
 
   if (img) {
-    img.src = photo.img_src;
-    img.alt = `${photo.camera.full_name} — Sol ${photo.sol}`;
+    img.src = photo.imgSrc;
+    img.alt = `${photo.cameraFullName} — Sol ${photo.sol}`;
   }
-
   if (meta) {
-    meta.textContent = `${photo.camera.full_name} | Sol ${photo.sol} | ${photo.earth_date}`;
+    meta.textContent = `${photo.camera} | Sol ${photo.sol} | ${photo.earthDate} | ${photo.rover}`;
   }
-
   dialog?.setAttribute("open", "");
 }

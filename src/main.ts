@@ -43,6 +43,7 @@ import { initAboutDialog } from "./features/about-dialog.ts";
 import { initAINarrator, setAnthropicKey } from "./features/ai-narrator.ts";
 import { playBlip, playStart, playStop, playSwitch, toggleSound, isSoundEnabled } from "./features/sound-design.ts";
 import { initMissionChat } from "./features/mission-chat.ts";
+import { initI18n, setLanguage, getCurrentLanguage } from "./i18n/i18n.ts";
 import { ROVERS, ROVER_NAMES, setNasaApiKey, getEsriApiKey, setEsriApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
 
@@ -55,6 +56,9 @@ async function bootstrap(): Promise<void> {
   try {
     // Step 1: Register Calcite custom elements
     defineCustomElements(window);
+
+    // Step 0: Initialize i18n
+    await initI18n();
 
     // Step 1b: Set Esri API key
     esriConfig.apiKey = getEsriApiKey();
@@ -180,7 +184,10 @@ async function bootstrap(): Promise<void> {
     // Step 26: Sound toggle
     initSoundToggle();
 
-    // Step 27: Wire settings dialog
+    // Step 27: Wire language selector
+    initLanguageSelector();
+
+    // Step 28: Wire settings dialog
     initSettingsDialog();
 
   } catch (err) {
@@ -529,6 +536,19 @@ function initPanoramaToggle(): void {
 /** Wire raw images panel toggle. */
 function initRawImagesToggle(): void {
   togglePanel("btn-raw-images", "raw-images-panel");
+}
+
+/** Wire language selector. */
+function initLanguageSelector(): void {
+  const select = document.getElementById("lang-select") as HTMLSelectElement | null;
+  if (!select) return;
+
+  // Set initial value
+  select.value = getCurrentLanguage();
+
+  select.addEventListener("change", () => {
+    setLanguage(select.value);
+  });
 }
 
 /** Wire sound toggle button. */
