@@ -2,8 +2,21 @@
  * Shared TypeScript interfaces for SolTracker.
  */
 
-/** Valid rover identifier */
-export type RoverName = "perseverance" | "curiosity" | "opportunity" | "spirit";
+/** NASA rover identifiers (original four) */
+export type NASARoverName = "perseverance" | "curiosity" | "opportunity" | "spirit";
+
+/** All tracked mission identifiers — rovers and landers */
+export type MissionName =
+  | NASARoverName
+  | "zhurong" | "sojourner"
+  | "insight" | "phoenix" | "viking1" | "viking2"
+  | "beagle2" | "mars3";
+
+/** Backward-compatible alias */
+export type RoverName = MissionName;
+
+/** Mission category */
+export type MissionCategory = "active-rover" | "historic-rover" | "lander";
 
 /** Camera abbreviation and full name */
 export interface CameraInfo {
@@ -11,18 +24,20 @@ export interface CameraInfo {
   fullName: string;
 }
 
-/** Per-rover configuration metadata */
+/** Per-mission configuration metadata */
 export interface RoverConfig {
   name: RoverName;
   displayName: string;
   status: "active" | "complete";
+  category: MissionCategory;
+  agency: string;
   landingDate: string;
   landingLat: number;
   landingLon: number;
   location: string;
   color: string;
   colorSecondary: string;
-  dataSource: "mmgis" | "static";
+  dataSource: "mmgis" | "static" | "none";
   mmgisMission?: "M20" | "MSL";
   staticFile?: string;
   cameras: CameraInfo[];

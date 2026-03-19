@@ -196,6 +196,20 @@ arcgis-scene {
   opacity: 0.4;
 }
 
+.rover-pill-flag {
+  font-size: 0.65rem;
+  line-height: 1;
+}
+
+.rover-group-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  padding: 4px 12px 0;
+  margin-top: 2px;
+}
+
 /* --- Tool Buttons (left side, below rovers) --- */
 .tool-buttons {
   position: absolute;

@@ -6,13 +6,17 @@ import { ROVERS } from "../../config.ts";
 import { fetchMMGIS } from "../../services/mmgis-client.ts";
 import type { RoverName } from "../../types.ts";
 
-// Static GeoJSON imports for retired rovers
+// Static GeoJSON imports for rovers with pre-committed data
 import spiritData from "../../data/spirit-traverse.geojson?url";
 import opportunityData from "../../data/opportunity-traverse.geojson?url";
+import zhurongData from "../../data/zhurong-traverse.geojson?url";
+import sojournerData from "../../data/sojourner-traverse.geojson?url";
 
 const staticUrls: Record<string, string> = {
   spirit: spiritData,
   opportunity: opportunityData,
+  zhurong: zhurongData,
+  sojourner: sojournerData,
 };
 
 /** In-memory cache keyed by rover name */
@@ -63,7 +67,8 @@ export async function loadTraverse(
  */
 export async function loadAllTraverses(): Promise<Map<RoverName, GeoJSON.FeatureCollection>> {
   const results = new Map<RoverName, GeoJSON.FeatureCollection>();
-  const roverNames: RoverName[] = ["perseverance", "curiosity", "opportunity", "spirit"];
+  const { ALL_ROVERS_WITH_TRAVERSE } = await import("../../config.ts");
+  const roverNames = ALL_ROVERS_WITH_TRAVERSE;
 
   const settled = await Promise.allSettled(
     roverNames.map(async (name) => {

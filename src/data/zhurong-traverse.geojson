@@ -1,0 +1,206 @@
+{
+  "type": "FeatureCollection",
+  "name": "Zhurong Traverse",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92500, 25.06600] },
+      "properties": { "sol": 0, "site": "Landing Site, Utopia Planitia", "drive": 0, "dist_total_m": 0, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92501, 25.06595] },
+      "properties": { "sol": 5, "site": "Post-landing checkout", "drive": 0, "dist_total_m": 0, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92503, 25.06589] },
+      "properties": { "sol": 11, "site": "First drive", "drive": 1, "dist_total_m": 12, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92506, 25.06578] },
+      "properties": { "sol": 18, "site": "Initial survey area", "drive": 3, "dist_total_m": 30, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92509, 25.06563] },
+      "properties": { "sol": 25, "site": "South traverse begins", "drive": 5, "dist_total_m": 55, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92512, 25.06545] },
+      "properties": { "sol": 32, "site": "Dune field approach", "drive": 7, "dist_total_m": 95, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92516, 25.06525] },
+      "properties": { "sol": 42, "site": "First rock analysis", "drive": 10, "dist_total_m": 150, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92520, 25.06498] },
+      "properties": { "sol": 50, "site": "South traverse waypoint", "drive": 12, "dist_total_m": 220, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92525, 25.06465] },
+      "properties": { "sol": 60, "site": "450m mark", "drive": 15, "dist_total_m": 450, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92530, 25.06435] },
+      "properties": { "sol": 70, "site": "Continued south traverse", "drive": 18, "dist_total_m": 530, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92535, 25.06400] },
+      "properties": { "sol": 80, "site": "Terrain analysis site", "drive": 21, "dist_total_m": 610, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92540, 25.06365] },
+      "properties": { "sol": 90, "site": "South traverse waypoint", "drive": 24, "dist_total_m": 700, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92546, 25.06325] },
+      "properties": { "sol": 100, "site": "Sol 100 milestone", "drive": 27, "dist_total_m": 790, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92551, 25.06285] },
+      "properties": { "sol": 110, "site": "South traverse continued", "drive": 30, "dist_total_m": 860, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92557, 25.06240] },
+      "properties": { "sol": 120, "site": "Rock outcrop survey", "drive": 33, "dist_total_m": 920, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92562, 25.06200] },
+      "properties": { "sol": 130, "site": "South traverse waypoint", "drive": 35, "dist_total_m": 960, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92567, 25.06155] },
+      "properties": { "sol": 140, "site": "Soil analysis site", "drive": 37, "dist_total_m": 1010, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92572, 25.06115] },
+      "properties": { "sol": 150, "site": "Sol 150 waypoint", "drive": 39, "dist_total_m": 1060, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92577, 25.06075] },
+      "properties": { "sol": 160, "site": "South traverse continued", "drive": 41, "dist_total_m": 1110, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92582, 25.06030] },
+      "properties": { "sol": 170, "site": "Terrain feature survey", "drive": 43, "dist_total_m": 1150, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92587, 25.05990] },
+      "properties": { "sol": 180, "site": "South traverse waypoint", "drive": 45, "dist_total_m": 1190, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92592, 25.05945] },
+      "properties": { "sol": 190, "site": "Continued operations", "drive": 47, "dist_total_m": 1230, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92597, 25.05900] },
+      "properties": { "sol": 200, "site": "1 km mark", "drive": 49, "dist_total_m": 1280, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92602, 25.05858] },
+      "properties": { "sol": 210, "site": "South traverse waypoint", "drive": 51, "dist_total_m": 1330, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92607, 25.05815] },
+      "properties": { "sol": 220, "site": "Rock sampling site", "drive": 53, "dist_total_m": 1380, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92612, 25.05775] },
+      "properties": { "sol": 230, "site": "South traverse continued", "drive": 55, "dist_total_m": 1430, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92616, 25.05735] },
+      "properties": { "sol": 240, "site": "Terrain analysis", "drive": 57, "dist_total_m": 1475, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92620, 25.05695] },
+      "properties": { "sol": 250, "site": "Sol 250 waypoint", "drive": 59, "dist_total_m": 1520, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92624, 25.05655] },
+      "properties": { "sol": 260, "site": "South traverse waypoint", "drive": 61, "dist_total_m": 1565, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92628, 25.05612] },
+      "properties": { "sol": 270, "site": "Continued south traverse", "drive": 63, "dist_total_m": 1610, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92632, 25.05570] },
+      "properties": { "sol": 280, "site": "Ground-penetrating radar survey", "drive": 65, "dist_total_m": 1655, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92636, 25.05530] },
+      "properties": { "sol": 290, "site": "South traverse waypoint", "drive": 67, "dist_total_m": 1700, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92640, 25.05487] },
+      "properties": { "sol": 300, "site": "1.5 km mark", "drive": 69, "dist_total_m": 1750, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92644, 25.05450] },
+      "properties": { "sol": 310, "site": "Late traverse waypoint", "drive": 71, "dist_total_m": 1800, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92648, 25.05410] },
+      "properties": { "sol": 320, "site": "South traverse continued", "drive": 73, "dist_total_m": 1845, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92652, 25.05378] },
+      "properties": { "sol": 325, "site": "Pre-hibernation survey", "drive": 74, "dist_total_m": 1870, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92655, 25.05350] },
+      "properties": { "sol": 330, "site": "Approaching final position", "drive": 75, "dist_total_m": 1895, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92658, 25.05330] },
+      "properties": { "sol": 333, "site": "Final drive position", "drive": 76, "dist_total_m": 1921, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92658, 25.05330] },
+      "properties": { "sol": 345, "site": "Hibernation (no movement)", "drive": 76, "dist_total_m": 1921, "rover": "zhurong" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [109.92658, 25.05330] },
+      "properties": { "sol": 358, "site": "Hibernation — final sol", "drive": 76, "dist_total_m": 1921, "rover": "zhurong" }
+    }
+  ]
+}

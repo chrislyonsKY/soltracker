@@ -38,27 +38,68 @@
       </div>
     </header>
 
-    <!-- Left: Rover Selector Pills -->
-    <nav class="rover-selector" aria-label="Rover selection">
-      <button class="rover-pill active" data-rover="perseverance" title="Perseverance — Jezero Crater (Active)">
+    <!-- Left: Mission Selector Pills -->
+    <nav class="rover-selector" aria-label="Mission selection">
+      <!-- Active Rovers -->
+      <div class="rover-group-label">ACTIVE</div>
+      <button class="rover-pill active" data-rover="perseverance" title="Perseverance — Jezero Crater (NASA, Active)">
         <span class="rover-pill-dot" style="background: #E03C31;"></span>
         <span class="rover-pill-name">Perseverance</span>
       </button>
-      <button class="rover-pill" data-rover="curiosity" title="Curiosity — Gale Crater (Active)">
+      <button class="rover-pill" data-rover="curiosity" title="Curiosity — Gale Crater (NASA, Active)">
         <span class="rover-pill-dot" style="background: #3A7BD5;"></span>
         <span class="rover-pill-name">Curiosity</span>
       </button>
-      <button class="rover-pill" data-rover="opportunity" title="Opportunity — Meridiani Planum (Ended 2019)">
+      <button class="rover-pill" id="btn-ingenuity" title="Ingenuity — Mars Helicopter (NASA, Ended 2024)">
+        <span class="rover-pill-dot" style="background: #9B59B6;"></span>
+        <span class="rover-pill-name">Ingenuity</span>
+      </button>
+      <!-- Historic Rovers -->
+      <div class="rover-group-label">ROVERS</div>
+      <button class="rover-pill" data-rover="opportunity" title="Opportunity — Meridiani Planum (NASA, 2004-2018)">
         <span class="rover-pill-dot" style="background: #D4A843;"></span>
         <span class="rover-pill-name">Opportunity</span>
       </button>
-      <button class="rover-pill" data-rover="spirit" title="Spirit — Gusev Crater (Ended 2010)">
+      <button class="rover-pill" data-rover="spirit" title="Spirit — Gusev Crater (NASA, 2004-2010)">
         <span class="rover-pill-dot" style="background: #2E8B57;"></span>
         <span class="rover-pill-name">Spirit</span>
       </button>
-      <button class="rover-pill" id="btn-ingenuity" title="Ingenuity — Mars Helicopter (Ended 2024)">
-        <span class="rover-pill-dot" style="background: #9B59B6;"></span>
-        <span class="rover-pill-name">Ingenuity</span>
+      <button class="rover-pill" data-rover="zhurong" title="Zhurong — Utopia Planitia (CNSA, 2021-2022)">
+        <span class="rover-pill-dot" style="background: #FF4444;"></span>
+        <span class="rover-pill-name">Zhurong</span>
+        <span class="rover-pill-flag">🇨🇳</span>
+      </button>
+      <button class="rover-pill" data-rover="sojourner" title="Sojourner — Ares Vallis (NASA, 1997)">
+        <span class="rover-pill-dot" style="background: #B0BEC5;"></span>
+        <span class="rover-pill-name">Sojourner</span>
+      </button>
+      <!-- Landers -->
+      <div class="rover-group-label">LANDERS</div>
+      <button class="rover-pill" data-rover="insight" title="InSight — Elysium Planitia (NASA, 2018-2022)">
+        <span class="rover-pill-dot" style="background: #FF9800;"></span>
+        <span class="rover-pill-name">InSight</span>
+      </button>
+      <button class="rover-pill" data-rover="phoenix" title="Phoenix — Vastitas Borealis (NASA, 2008)">
+        <span class="rover-pill-dot" style="background: #00BCD4;"></span>
+        <span class="rover-pill-name">Phoenix</span>
+      </button>
+      <button class="rover-pill" data-rover="viking1" title="Viking 1 — Chryse Planitia (NASA, 1976)">
+        <span class="rover-pill-dot" style="background: #8D6E63;"></span>
+        <span class="rover-pill-name">Viking 1</span>
+      </button>
+      <button class="rover-pill" data-rover="viking2" title="Viking 2 — Utopia Planitia (NASA, 1976)">
+        <span class="rover-pill-dot" style="background: #A1887F;"></span>
+        <span class="rover-pill-name">Viking 2</span>
+      </button>
+      <button class="rover-pill" data-rover="beagle2" title="Beagle 2 — Isidis Planitia (ESA, 2003)">
+        <span class="rover-pill-dot" style="background: #7986CB;"></span>
+        <span class="rover-pill-name">Beagle 2</span>
+        <span class="rover-pill-flag">🇪🇺</span>
+      </button>
+      <button class="rover-pill" data-rover="mars3" title="Mars 3 — Ptolemaeus Crater (Soviet, 1971)">
+        <span class="rover-pill-dot" style="background: #EF5350;"></span>
+        <span class="rover-pill-name">Mars 3</span>
+        <span class="rover-pill-flag">🇷🇺</span>
       </button>
     </nav>
 

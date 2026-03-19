@@ -36,6 +36,7 @@ import { initSampleMap, setSampleVisibility } from "./features/samples/sample-ma
 import { initGeologicalOverlays } from "./features/overlays/geological-overlay.ts";
 import { initEarthScale, placeEarthRegion, clearEarthScale } from "./features/overlays/earth-scale.ts";
 import { initRawImageFeed } from "./features/photos/raw-images.ts";
+import { initLanderMarkers } from "./features/traverse/lander-markers.ts";
 import { initPanoramaViewer } from "./features/photos/panorama-viewer.ts";
 import { initBasemapToggle } from "./features/mars-globe/basemap-toggle.ts";
 import { initAboutDialog } from "./features/about-dialog.ts";
@@ -120,6 +121,9 @@ async function bootstrap(): Promise<void> {
     initIngenuity(view);
     initIngenuityToggle();
 
+    // Step 14b: Initialize lander markers
+    initLanderMarkers(view);
+
     // Step 15: Compute drive analytics (F10) for all loaded rovers
     for (const [rover, data] of traverses) {
       if (data.features.length > 0) {
@@ -202,9 +206,20 @@ function initRoverToggle(): void {
     if (!rover) continue;
 
     pill.addEventListener("click", () => {
+      const config = ROVERS[rover];
+
+      // Landers: just fly to location
+      if (config.category === "lander") {
+        playSwitch();
+        flyTo(config.landingLat, config.landingLon, 200_000).catch(() => {});
+        for (const p of pills) {
+          p.classList.toggle("active", p.dataset.rover === rover);
+        }
+        return;
+      }
+
       const current = roverVisibility.get(rover) ?? true;
       const animState = getAnimationState();
-      const config = ROVERS[rover];
 
       if (animState.activeRover === rover) {
         // Toggle visibility of already-active rover

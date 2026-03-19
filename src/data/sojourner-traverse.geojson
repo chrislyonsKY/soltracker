@@ -1,0 +1,106 @@
+{
+  "type": "FeatureCollection",
+  "name": "Sojourner Traverse",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52000, 19.30000] },
+      "properties": { "sol": 0, "site": "Mars Pathfinder Landing Site, Ares Vallis", "drive": 0, "dist_total_m": 0, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52000, 19.30000] },
+      "properties": { "sol": 2, "site": "Sojourner deployment from lander", "drive": 1, "dist_total_m": 2, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.51993, 19.30005] },
+      "properties": { "sol": 3, "site": "Barnacle Bill", "drive": 2, "dist_total_m": 5, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.51987, 19.30008] },
+      "properties": { "sol": 6, "site": "Near Barnacle Bill return", "drive": 3, "dist_total_m": 9, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.51982, 19.30012] },
+      "properties": { "sol": 10, "site": "Yogi approach", "drive": 4, "dist_total_m": 15, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.51978, 19.30015] },
+      "properties": { "sol": 15, "site": "Yogi analysis complete", "drive": 5, "dist_total_m": 22, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.51985, 19.30010] },
+      "properties": { "sol": 20, "site": "Scooby-Doo", "drive": 6, "dist_total_m": 30, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.51990, 19.30005] },
+      "properties": { "sol": 25, "site": "Return toward lander", "drive": 7, "dist_total_m": 37, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.51995, 19.29997] },
+      "properties": { "sol": 30, "site": "Shark and Half Dome", "drive": 8, "dist_total_m": 44, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52002, 19.29993] },
+      "properties": { "sol": 35, "site": "South of lander survey", "drive": 9, "dist_total_m": 52, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52008, 19.29995] },
+      "properties": { "sol": 40, "site": "Wedge", "drive": 10, "dist_total_m": 58, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52012, 19.29998] },
+      "properties": { "sol": 45, "site": "Southwest area survey", "drive": 11, "dist_total_m": 65, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52010, 19.30003] },
+      "properties": { "sol": 50, "site": "Rock Garden approach", "drive": 12, "dist_total_m": 72, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52007, 19.30008] },
+      "properties": { "sol": 55, "site": "Rock Garden — Shark Flat Top", "drive": 13, "dist_total_m": 78, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52005, 19.30005] },
+      "properties": { "sol": 60, "site": "Rock Garden — Chimp", "drive": 14, "dist_total_m": 83, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52003, 19.30002] },
+      "properties": { "sol": 65, "site": "Rock Garden area continued", "drive": 15, "dist_total_m": 88, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52001, 19.30000] },
+      "properties": { "sol": 70, "site": "Near lander return", "drive": 16, "dist_total_m": 92, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52003, 19.29998] },
+      "properties": { "sol": 75, "site": "Late mission traverse", "drive": 17, "dist_total_m": 96, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52002, 19.29997] },
+      "properties": { "sol": 80, "site": "Final operations area", "drive": 18, "dist_total_m": 99, "rover": "sojourner" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-33.52002, 19.29997] },
+      "properties": { "sol": 83, "site": "Last contact", "drive": 18, "dist_total_m": 100, "rover": "sojourner" }
+    }
+  ]
+}

@@ -37,7 +37,7 @@ function resolveModelUrl(filename: string): string {
   return `${base}models/${filename}`;
 }
 
-const ROVER_MODEL_FILES: Record<RoverName, string> = {
+const ROVER_MODEL_FILES: Partial<Record<RoverName, string>> = {
   perseverance: "perseverance.glb",
   curiosity: "curiosity.glb",
   opportunity: "mer.glb",
@@ -50,7 +50,7 @@ const ROVER_MODEL_FILES: Record<RoverName, string> = {
  * The ArcGIS SDK auto-scales ObjectSymbol3DLayer based on view extent,
  * but we set a base height and enable screen-size scaling.
  */
-const ROVER_HEIGHTS: Record<RoverName, number> = {
+const ROVER_HEIGHTS: Partial<Record<RoverName, number>> = {
   perseverance: 500,
   curiosity: 500,
   opportunity: 400,
@@ -73,8 +73,9 @@ const modelEntries = new Map<RoverName, RoverModelEntry>();
  * @param view - The SceneView to add model layers to
  */
 export function initRoverModels(view: SceneView): void {
-  for (const roverName of Object.keys(ROVERS) as RoverName[]) {
+  for (const roverName of Object.keys(ROVER_MODEL_FILES) as RoverName[]) {
     const config = ROVERS[roverName];
+    if (!config) continue;
 
     const layer = new GraphicsLayer({
       title: `${config.displayName} 3D Model`,
@@ -111,8 +112,10 @@ export function initRoverModels(view: SceneView): void {
  * @returns PointSymbol3D configured with the rover's GLB model
  */
 function create3DModelSymbol(rover: RoverName): PointSymbol3D {
-  const modelUrl = resolveModelUrl(ROVER_MODEL_FILES[rover]);
-  const height = ROVER_HEIGHTS[rover];
+  const file = ROVER_MODEL_FILES[rover];
+  if (!file) return createFallbackSymbol(rover);
+  const modelUrl = resolveModelUrl(file);
+  const height = ROVER_HEIGHTS[rover] ?? 300;
   console.info(`Loading 3D model for ${rover}: ${modelUrl}`);
 
   return new PointSymbol3D({
