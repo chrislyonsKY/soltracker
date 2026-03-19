@@ -1,0 +1,22 @@
+{
+  "name": "soltracker",
+  "private": true,
+  "version": "0.1.0",
+  "description": "3D Mars rover tracking application",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@arcgis/core": "^5.0.12",
+    "@arcgis/map-components": "^5.0.12"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1"
+  }
+}

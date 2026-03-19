@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SolTracker — Mars Rover Explorer</title>
+    <meta name="description" content="Track all four NASA Mars rovers on a 3D globe with sol-by-sol traverse animation." />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>" />
+  </head>
+  <body class="calcite-mode-dark">
+    <calcite-shell>
+      <!-- Left: Action bar with rover selector -->
+      <calcite-shell-panel slot="panel-start" display-mode="float">
+        <calcite-action-bar slot="action-bar">
+          <calcite-action text="Perseverance" icon="pin" data-rover="perseverance"></calcite-action>
+          <calcite-action text="Curiosity" icon="pin" data-rover="curiosity"></calcite-action>
+          <calcite-action text="Opportunity" icon="pin" data-rover="opportunity"></calcite-action>
+          <calcite-action text="Spirit" icon="pin" data-rover="spirit"></calcite-action>
+          <calcite-action slot="actions-end" text="Settings" icon="gear"></calcite-action>
+          <calcite-action slot="actions-end" text="About" icon="information"></calcite-action>
+        </calcite-action-bar>
+      </calcite-shell-panel>
+
+      <!-- Center: Mars 3D Globe -->
+      <div id="scene-container" style="width: 100%; height: 100%; position: relative;">
+        <div class="sol-loading" id="loading-indicator">Loading Mars...</div>
+        <arcgis-scene></arcgis-scene>
+      </div>
+
+      <!-- Right: Dashboard panel (collapsible) -->
+      <calcite-shell-panel slot="panel-end" display-mode="float" width-scale="m">
+        <calcite-panel heading="Mission Dashboard" id="dashboard-panel">
+          <calcite-block heading="Rover Stats" open>
+            <p id="dashboard-rover-name">Perseverance</p>
+            <p id="dashboard-sol">Sol --</p>
+            <p id="dashboard-date">--</p>
+            <p id="dashboard-distance">--</p>
+            <p id="dashboard-status">--</p>
+          </calcite-block>
+          <calcite-block heading="Mars Weather" collapsible>
+            <p id="weather-temp">--</p>
+            <p id="weather-pressure">--</p>
+            <p id="weather-opacity">--</p>
+            <p id="weather-season">--</p>
+          </calcite-block>
+        </calcite-panel>
+      </calcite-shell-panel>
+
+      <!-- Bottom: Sol timeline (placeholder) -->
+      <calcite-shell-panel slot="panel-bottom" display-mode="float" layout="horizontal">
+        <div id="timeline-container" style="padding: 8px 16px; display: flex; align-items: center; gap: 12px;">
+          <calcite-button id="btn-play" icon-start="play" appearance="transparent" kind="neutral" scale="s" aria-label="Play animation"></calcite-button>
+          <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label-handles label-ticks ticks="200" style="flex: 1;"></calcite-slider>
+          <span id="sol-display" style="color: #ccc; white-space: nowrap; min-width: 120px;">Sol 0 / --</span>
+        </div>
+      </calcite-shell-panel>
+    </calcite-shell>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

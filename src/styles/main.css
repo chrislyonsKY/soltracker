@@ -1,0 +1,44 @@
+/* SolTracker — Global styles */
+
+:root {
+  --sol-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--sol-font-family);
+}
+
+/* Calcite shell fills viewport */
+calcite-shell {
+  width: 100%;
+  height: 100%;
+}
+
+/* Scene fills available space */
+arcgis-scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Loading indicator */
+.sol-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
+  font-size: 1.2rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.sol-loading.hidden {
+  display: none;
+}
