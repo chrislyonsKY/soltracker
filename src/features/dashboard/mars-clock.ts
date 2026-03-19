@@ -55,31 +55,12 @@ function updateClock(): void {
   // Current sol for active rover
   const currentSol = getCurrentSol(activeRover);
 
-  // Mars Coordinated Time (MTC)
   const mtc = computeMTC(now);
-  const mtcStr = formatMarsTime(mtc);
-
-  // Local Mean Solar Time at rover's longitude
   const lmst = computeLMST(mtc, config.landingLon);
   const lmstStr = formatMarsTime(lmst);
 
-  container.innerHTML = `
-    <div class="clock-row mars-time" style="color: ${config.color}">
-      <span class="clock-label">LMST</span>
-      <span class="clock-value">${lmstStr}</span>
-    </div>
-    <div class="clock-row mars-time">
-      <span class="clock-label">MTC</span>
-      <span class="clock-value">${mtcStr}</span>
-    </div>
-    <div class="clock-row earth-time">
-      <span class="clock-label">UTC</span>
-      <span class="clock-value">${earthTime}</span>
-    </div>
-    <div class="clock-row sol-now" style="color: ${config.color}">
-      Sol ${currentSol.toLocaleString()} now
-    </div>
-  `;
+  // Compact inline clock for header
+  container.innerHTML = `<span style="color:${config.color}">Sol ${currentSol.toLocaleString()}</span> <span style="opacity:0.5">|</span> ${lmstStr} LMST <span style="opacity:0.5">|</span> ${earthTime} UTC`;
 }
 
 /**

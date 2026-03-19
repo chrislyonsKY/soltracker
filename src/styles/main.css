@@ -1,396 +1,331 @@
-/* SolTracker — NASA-inspired dark theme */
+/* SolTracker — Mission Control Layout
+   Globe fills top ~60%, data strip fills bottom ~40%.
+   NASA-inspired dark theme. */
 
 :root {
-  /* NASA Design System colors */
   --nasa-blue: #0b3d91;
   --nasa-blue-light: #105bd8;
   --nasa-cyan: #02bfe7;
   --nasa-cyan-dark: #00a6d2;
   --nasa-red: #dd361c;
   --nasa-gold: #ff9d1e;
-
-  /* Dark background palette */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #111118;
-  --bg-panel: #14141c;
-  --bg-card: #1a1a24;
-  --bg-card-hover: #22222e;
-  --bg-surface: #1e1e28;
-
-  /* Text */
+  --bg-primary: #08080d;
+  --bg-panel: #0e0e14;
+  --bg-card: #151520;
+  --bg-card-hover: #1c1c2a;
   --text-primary: #e8e8ed;
   --text-secondary: #9a9aad;
   --text-muted: #7a7a90;
-  --text-accent: var(--nasa-cyan);
-
-  /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-medium: rgba(255, 255, 255, 0.1);
-
-  /* Fonts */
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-medium: rgba(255,255,255,0.1);
   --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "SF Mono", "Fira Code", "JetBrains Mono", monospace;
-
-  /* Sizing */
-  --header-height: 44px;
-  --timeline-height: 56px;
-  --panel-width: 340px;
+  --font-mono: "SF Mono", "Fira Code", monospace;
+  --header-h: 42px;
+  --timeline-h: 44px;
+  --strip-h: 38%;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100%;
   overflow: hidden;
   font-family: var(--font-display);
   background: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Override Calcite dark mode with NASA palette */
-calcite-shell {
-  --calcite-color-brand: var(--nasa-cyan-dark);
-  --calcite-color-background: var(--bg-primary);
-  width: 100%;
-  height: 100%;
+/* === GLOBE === */
+#scene-container {
+  position: fixed;
+  top: var(--header-h);
+  left: 0; right: 0;
+  bottom: calc(var(--strip-h) + var(--timeline-h));
 }
 
-/* Scene fills available space */
 arcgis-scene {
-  display: block;
-  width: 100%;
-  height: 100%;
-  touch-action: none; /* Let ArcGIS handle all touch gestures */
+  display: block; width: 100%; height: 100%;
+  touch-action: none;
 }
 
-/* --- Top Header Bar --- */
-.sol-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--header-height);
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  z-index: 100;
-  pointer-events: auto;
-}
-
-.sol-header-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sol-header-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-}
-
-.sol-header-subtitle {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.sol-header-clock {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.sol-header-clock .mars-time {
-  color: var(--nasa-cyan);
-}
-
-/* --- Loading indicator --- */
 .sol-loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--text-secondary);
-  font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  z-index: 10;
-  pointer-events: none;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  color: var(--text-muted); font-size: 0.85rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  z-index: 10; pointer-events: none;
 }
+.sol-loading.hidden { display: none; }
 
-.sol-loading.hidden {
-  display: none;
-}
-
-/* --- Rover Selector Pills (left side) --- */
-.rover-selector {
-  position: absolute;
-  top: calc(var(--header-height) + 12px);
-  left: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 90;
-}
-
-.rover-pill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: rgba(20, 20, 28, 0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.03em;
-}
-
-.rover-pill:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-medium);
-}
-
-.rover-pill.active {
-  border-color: var(--border-medium);
-  color: var(--text-primary);
-}
-
-.rover-pill-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.rover-pill-name {
-  flex: 1;
-}
-
-.rover-pill.hidden-rover {
-  opacity: 0.4;
-}
-
-.rover-pill-flag {
-  font-size: 0.65rem;
-  line-height: 1;
-}
-
-.rover-group-label {
-  font-size: 0.5rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--text-muted);
-  padding: 4px 12px 0;
-  margin-top: 2px;
-}
-
-/* --- Tool Buttons (left side, below rovers) --- */
-.tool-buttons {
-  position: absolute;
-  bottom: calc(var(--timeline-height) + 20px);
-  left: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  z-index: 90;
-}
-
-.tool-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: rgba(20, 20, 28, 0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  font-size: 0.7rem;
-}
-
-.tool-btn:hover {
-  background: var(--bg-card-hover);
-  color: var(--text-primary);
-}
-
-.tool-btn.active {
-  background: var(--nasa-blue);
-  border-color: var(--nasa-blue-light);
-  color: white;
-}
-
-/* --- Right Dashboard Panel --- */
-.dashboard-panel {
-  position: absolute;
-  top: calc(var(--header-height) + 12px);
-  right: 12px;
-  bottom: calc(var(--timeline-height) + 12px);
-  width: var(--panel-width);
-  background: rgba(14, 14, 20, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 90;
-  scrollbar-width: thin;
-  scrollbar-color: var(--bg-card) transparent;
-}
-
-.dashboard-panel::-webkit-scrollbar {
-  width: 4px;
-}
-
-.dashboard-panel::-webkit-scrollbar-thumb {
-  background: var(--bg-card);
-  border-radius: 2px;
-}
-
-/* --- Dashboard Sections --- */
-.dash-section {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.dash-section:last-child {
-  border-bottom: none;
-}
-
-.dash-section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.dash-section-title {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.dash-section-title.accent {
-  color: var(--nasa-cyan);
-}
-
-/* --- Bottom Timeline --- */
-.sol-timeline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: var(--timeline-height);
-  background: rgba(10, 10, 15, 0.9);
+/* === HEADER === */
+.sol-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: rgba(8,8,13,0.92);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  gap: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center;
+  padding: 0 12px; gap: 12px;
+  z-index: 200;
+}
+
+.sol-header-brand { flex-shrink: 0; }
+.sol-header-title {
+  font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+/* Mission chips (horizontal scrolling bar) */
+.mission-bar {
+  flex: 1; overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.mission-bar::-webkit-scrollbar { display: none; }
+
+.mission-group {
+  display: flex; align-items: center; gap: 3px;
+  white-space: nowrap;
+}
+
+.mission-chip {
+  appearance: none; border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 4px 8px; border-radius: 12px;
+  cursor: pointer; display: flex;
+  align-items: center; gap: 4px;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.mission-chip:hover { background: var(--bg-card); color: var(--text-primary); }
+.mission-chip.active {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+}
+.mission-chip.hidden-rover { opacity: 0.35; }
+
+.chip-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+
+.mission-divider {
+  width: 1px; height: 16px; background: var(--border-subtle);
+  margin: 0 4px; flex-shrink: 0;
+}
+
+.header-tools {
+  display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+}
+.header-clock {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--text-secondary); margin-right: 4px;
+}
+.header-btn {
+  appearance: none; border: none; background: transparent;
+  color: var(--text-muted); cursor: pointer;
+  width: 28px; height: 28px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.header-btn:hover { background: var(--bg-card); color: var(--text-primary); }
+
+/* === GLOBE OVERLAY TOOLS === */
+.globe-tools {
+  position: fixed;
+  top: calc(var(--header-h) + 8px);
+  left: 8px;
+  display: flex; flex-direction: column; gap: 4px;
   z-index: 100;
+}
+
+.globe-tool-btn {
+  appearance: none; border: none;
+  width: 32px; height: 32px; border-radius: 6px;
+  background: rgba(14,14,20,0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.globe-tool-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+.globe-tool-btn.active { background: var(--nasa-blue); border-color: var(--nasa-blue-light); color: white; }
+
+/* Float panel (for geology, earth-scale) */
+.float-panel {
+  position: fixed;
+  top: calc(var(--header-h) + 8px);
+  left: 48px;
+  width: 220px;
+  background: rgba(14,14,20,0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 12px;
+  z-index: 100;
+}
+
+/* Basemap toggle */
+.basemap-toggle-container {
+  position: fixed;
+  bottom: calc(var(--strip-h) + var(--timeline-h) + 8px);
+  left: 8px;
+  display: flex; gap: 1px;
+  background: rgba(14,14,20,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden; z-index: 100;
+}
+
+.basemap-btn {
+  appearance: none; border: none; background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 5px 8px; cursor: pointer;
+  transition: all 0.15s;
+}
+.basemap-btn:hover { color: var(--text-primary); background: var(--bg-card); }
+.basemap-btn.active { color: var(--nasa-cyan); background: var(--bg-card); }
+
+/* === TIMELINE === */
+.sol-timeline {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: var(--strip-h);
+  height: var(--timeline-h);
+  background: rgba(8,8,13,0.95);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center;
+  padding: 0 12px; gap: 8px;
+  z-index: 150;
 }
 
 .timeline-controls {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  flex-shrink: 0;
+  display: flex; align-items: center; gap: 2px; flex-shrink: 0;
 }
 
-.timeline-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.tl-btn {
+  appearance: none; border: none; background: transparent;
+  color: var(--text-secondary); cursor: pointer;
+  width: 28px; height: 28px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
   transition: all 0.15s;
 }
+.tl-btn:hover { background: var(--bg-card); color: var(--text-primary); }
+.tl-btn.play-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--nasa-cyan-dark); color: white;
+}
+.tl-btn.play-btn:hover { background: var(--nasa-cyan); }
 
-.timeline-btn:hover {
-  background: var(--bg-card);
-  color: var(--text-primary);
+.speed-select {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  background: var(--bg-card); color: var(--text-secondary);
+  border: 1px solid var(--border-subtle); border-radius: 4px;
+  padding: 3px 6px; cursor: pointer; outline: none;
 }
 
-.timeline-btn.active {
-  color: var(--nasa-cyan);
-}
-
-.timeline-btn.play-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--nasa-cyan-dark);
-  color: white;
-  border: none;
-}
-
-.timeline-btn.play-btn:hover {
-  background: var(--nasa-cyan);
-}
-
-.sol-display {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  min-width: 140px;
-  text-align: right;
+.sol-readout {
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--text-secondary); white-space: nowrap;
+  min-width: 120px; text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-/* --- Speed selector --- */
-.speed-select {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
-  outline: none;
+/* === MISSION CONTROL STRIP === */
+.mc-strip {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--strip-h);
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-subtle);
+  display: flex; flex-direction: column;
+  z-index: 140;
 }
 
-.speed-select:focus {
-  border-color: var(--nasa-cyan-dark);
+/* Tabs */
+.mc-tabs {
+  display: flex; border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
 }
+
+.mc-tab {
+  appearance: none; border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 16px; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.mc-tab:hover { color: var(--text-primary); }
+.mc-tab.active {
+  color: var(--nasa-cyan);
+  border-bottom-color: var(--nasa-cyan);
+}
+
+/* Panels */
+.mc-panel {
+  display: none;
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 10px 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-card) transparent;
+}
+.mc-panel.active { display: flex; gap: 10px; flex-wrap: wrap; align-content: flex-start; }
+
+/* Cards */
+.mc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 10px 12px;
+  min-width: 200px;
+  flex: 1 1 200px;
+  max-width: 400px;
+}
+.mc-card-wide { flex: 2 1 350px; max-width: 600px; }
+.mc-card-full { flex: 1 1 100%; max-width: 100%; }
+
+.mc-card-title {
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 8px;
+}
+.mc-card-title.accent { color: var(--nasa-cyan); }
+.mc-card-sub {
+  font-weight: 400; letter-spacing: 0.05em;
+  margin-left: 8px; font-size: 0.55rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  :root { --strip-h: 45%; --header-h: 38px; --timeline-h: 40px; }
+
+  .mission-chip { font-size: 0.6rem; padding: 3px 6px; }
+  .header-clock { display: none; }
+  .mc-card { min-width: 150px; flex: 1 1 150px; }
+  .globe-tools { gap: 3px; }
+  .globe-tool-btn { width: 28px; height: 28px; }
+}
+
+@media (max-width: 480px) {
+  :root { --strip-h: 50%; }
+  .sol-header-title { font-size: 0.75rem; }
+  .mc-tab { padding: 6px 10px; font-size: 0.6rem; }
+  .mc-card { min-width: 100%; }
+}
+
+[dir="rtl"] .sol-header { flex-direction: row-reverse; }
+[dir="rtl"] .mission-group { flex-direction: row-reverse; }

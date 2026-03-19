@@ -200,7 +200,20 @@ const roverVisibility = new Map<RoverName, boolean>(
  * Wire the action bar rover buttons to toggle visibility and switch active rover.
  */
 function initRoverToggle(): void {
-  const pills = document.querySelectorAll<HTMLElement>(".rover-pill[data-rover]");
+  // Wire MC tabs
+  const tabs = document.querySelectorAll<HTMLElement>(".mc-tab");
+  const panels = document.querySelectorAll<HTMLElement>(".mc-panel");
+  for (const tab of tabs) {
+    tab.addEventListener("click", () => {
+      const panelId = `mc-${tab.dataset.panel}`;
+      tabs.forEach((t) => t.classList.remove("active"));
+      panels.forEach((p) => p.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById(panelId)?.classList.add("active");
+    });
+  }
+
+  const pills = document.querySelectorAll<HTMLElement>(".mission-chip[data-rover]");
   for (const pill of pills) {
     const rover = pill.dataset.rover as RoverName;
     if (!rover) continue;
