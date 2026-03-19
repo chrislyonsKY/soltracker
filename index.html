@@ -17,6 +17,7 @@
             <calcite-action text="Curiosity" icon="pin" data-rover="curiosity"></calcite-action>
             <calcite-action text="Opportunity" icon="pin" data-rover="opportunity"></calcite-action>
             <calcite-action text="Spirit" icon="pin" data-rover="spirit"></calcite-action>
+            <calcite-action text="Ingenuity" icon="altitude" id="btn-ingenuity" style="--calcite-color-brand: #9B59B6;"></calcite-action>
           </calcite-action-group>
           <calcite-action-group slot="actions-end">
             <calcite-action text="Settings" icon="gear" id="btn-settings"></calcite-action>
@@ -34,6 +35,11 @@
       <!-- Right: Dashboard panel -->
       <calcite-shell-panel slot="panel-end" display-mode="float" width-scale="m">
         <calcite-panel heading="Mission Dashboard" id="dashboard-panel">
+          <calcite-block heading="Mars Clock" open id="clock-block">
+            <calcite-icon icon="clock" slot="icon" scale="s"></calcite-icon>
+            <div id="mars-clock" class="mars-clock-widget"></div>
+          </calcite-block>
+
           <calcite-block heading="Rover Stats" open id="stats-block">
             <calcite-icon icon="exploration" slot="icon" scale="s"></calcite-icon>
             <div class="stat-grid">
@@ -95,6 +101,29 @@
             </div>
           </calcite-block>
 
+          <calcite-block heading="Elevation Profile" collapsible id="elevation-block">
+            <calcite-icon icon="altitude" slot="icon" scale="s"></calcite-icon>
+            <div id="elevation-chart" style="width: 100%; min-height: 120px;"></div>
+            <div class="stat-grid" style="margin-top: 8px;">
+              <div class="stat-item">
+                <span class="stat-label">Min</span>
+                <span class="stat-value" id="elev-min">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Max</span>
+                <span class="stat-value" id="elev-max">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Ascent</span>
+                <span class="stat-value" id="elev-ascent">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Descent</span>
+                <span class="stat-value" id="elev-descent">--</span>
+              </div>
+            </div>
+          </calcite-block>
+
           <calcite-block heading="Photos" collapsible id="photos-block">
             <calcite-icon icon="camera" slot="icon" scale="s"></calcite-icon>
             <div id="camera-filter-container">
@@ -123,6 +152,8 @@
               <calcite-option value="50">50x</calcite-option>
             </calcite-select>
             <calcite-button id="btn-follow" icon-start="gps-on" appearance="transparent" kind="neutral" scale="s" aria-label="Toggle camera follow" active></calcite-button>
+            <calcite-button id="btn-cinematic" icon-start="video" appearance="transparent" kind="neutral" scale="s" aria-label="Cinematic fly-through"></calcite-button>
+            <calcite-button id="btn-share" icon-start="share" appearance="transparent" kind="neutral" scale="s" aria-label="Copy share link"></calcite-button>
           </div>
           <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label-handles style="flex: 1;"></calcite-slider>
           <span id="sol-display" class="sol-display" aria-live="polite">Sol 0 / --</span>

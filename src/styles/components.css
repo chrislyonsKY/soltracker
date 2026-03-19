@@ -121,6 +121,42 @@
   color: #e74c3c;
 }
 
+/* --- Mars Clock --- */
+.mars-clock-widget {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 0.85rem;
+}
+
+.clock-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.clock-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #666;
+  min-width: 36px;
+}
+
+.clock-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.earth-time {
+  color: #888;
+}
+
+.sol-now {
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
 /* --- Responsive --- */
 @media (max-width: 768px) {
   .stat-grid {

@@ -23,6 +23,11 @@ import { initWeatherWidget } from "./features/dashboard/weather-widget.ts";
 import { initPhotoGallery } from "./features/photos/photo-gallery.ts";
 import { initCameraFilter } from "./features/photos/camera-filter.ts";
 import { initRoverModels, setRoverModelVisibility } from "./features/traverse/rover-models.ts";
+import { initElevationProfile, buildElevationProfile } from "./features/elevation/elevation-profile.ts";
+import { initMarsClock } from "./features/dashboard/mars-clock.ts";
+import { startCinematicFlythrough, stopCinematicFlythrough, isCinematicRunning } from "./features/traverse/cinematic-flythrough.ts";
+import { initUrlState } from "./features/url-state.ts";
+import { initIngenuity, setIngenuityVisibility } from "./features/traverse/ingenuity.ts";
 import { ROVERS, ROVER_NAMES, getNasaApiKey, setNasaApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
 
@@ -76,7 +81,28 @@ async function bootstrap(): Promise<void> {
     // Step 9: Initialize 3D rover models (F13)
     initRoverModels(view);
 
-    // Step 10: Wire settings dialog
+    // Step 10: Initialize elevation profile (F6)
+    await initElevationProfile();
+    // Build profile for Perseverance (default rover)
+    const persTraverse = traverses.get("perseverance");
+    if (persTraverse) {
+      buildElevationProfile("perseverance", persTraverse.features);
+    }
+
+    // Step 11: Initialize Mars dual clock (F9)
+    initMarsClock();
+
+    // Step 12: Initialize URL deep-linking (F12)
+    initUrlState();
+
+    // Step 13: Wire cinematic fly-through button (F7)
+    initCinematicButton(traverses);
+
+    // Step 14: Initialize Ingenuity helicopter tracking (F15)
+    initIngenuity(view);
+    initIngenuityToggle();
+
+    // Step 15: Wire settings dialog
     initSettingsDialog();
 
   } catch (err) {
@@ -257,6 +283,58 @@ function updateSolDisplay(state: AnimationState): void {
     const maxSol = getRoverMaxSol(state.activeRover);
     el.textContent = `Sol ${state.currentSol.toLocaleString()} / ${maxSol.toLocaleString()}`;
   }
+}
+
+/** Wire Ingenuity toggle button. */
+function initIngenuityToggle(): void {
+  const btn = document.getElementById("btn-ingenuity");
+  if (!btn) return;
+
+  let visible = true;
+  btn.addEventListener("click", () => {
+    visible = !visible;
+    setIngenuityVisibility(visible);
+    if (visible) {
+      btn.removeAttribute("appearance");
+    } else {
+      btn.setAttribute("appearance", "transparent");
+    }
+  });
+}
+
+/** Wire cinematic fly-through button. */
+function initCinematicButton(traverses: Map<RoverName, GeoJSON.FeatureCollection>): void {
+  const btn = document.getElementById("btn-cinematic");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    if (isCinematicRunning()) {
+      stopCinematicFlythrough();
+      btn.removeAttribute("active");
+      return;
+    }
+
+    const animState = getAnimationState();
+    const data = traverses.get(animState.activeRover);
+    if (!data) return;
+
+    const waypoints = data.features
+      .filter((f) => f.geometry.type === "Point")
+      .map((f) => {
+        const coords = (f.geometry as GeoJSON.Point).coordinates;
+        return { sol: f.properties?.sol ?? 0, lon: coords[0], lat: coords[1] };
+      })
+      .sort((a, b) => a.sol - b.sol);
+
+    btn.setAttribute("active", "");
+    startCinematicFlythrough(animState.activeRover, waypoints).then(() => {
+      btn.removeAttribute("active");
+    });
+  });
+
+  document.addEventListener("cinematic-end", () => {
+    btn.removeAttribute("active");
+  });
 }
 
 /** Wire settings dialog for BYOK API key. */
