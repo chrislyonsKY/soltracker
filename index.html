@@ -9,21 +9,61 @@
   </head>
   <body class="calcite-mode-dark">
     <calcite-shell>
-      <!-- Left: Action bar with rover selector -->
+      <!-- Left: Action bar with rover selector + tools -->
       <calcite-shell-panel slot="panel-start" display-mode="float">
-        <calcite-action-bar slot="action-bar">
-          <calcite-action-group>
+        <calcite-action-bar slot="action-bar" expand-disabled>
+          <calcite-action-group label="Rovers">
             <calcite-action text="Perseverance" icon="pin" data-rover="perseverance" active></calcite-action>
             <calcite-action text="Curiosity" icon="pin" data-rover="curiosity"></calcite-action>
             <calcite-action text="Opportunity" icon="pin" data-rover="opportunity"></calcite-action>
             <calcite-action text="Spirit" icon="pin" data-rover="spirit"></calcite-action>
             <calcite-action text="Ingenuity" icon="altitude" id="btn-ingenuity" style="--calcite-color-brand: #9B59B6;"></calcite-action>
           </calcite-action-group>
+          <calcite-action-group label="Layers">
+            <calcite-action text="Samples" icon="point" id="btn-samples"></calcite-action>
+            <calcite-action text="Geology Layers" icon="layers" id="btn-geology"></calcite-action>
+            <calcite-action text="Earth Scale" icon="measure" id="btn-earth-scale"></calcite-action>
+          </calcite-action-group>
+          <calcite-action-group label="Views">
+            <calcite-action text="Panoramas" icon="image" id="btn-panoramas"></calcite-action>
+            <calcite-action text="Raw Images" icon="camera-flash" id="btn-raw-images"></calcite-action>
+          </calcite-action-group>
           <calcite-action-group slot="actions-end">
             <calcite-action text="Settings" icon="gear" id="btn-settings"></calcite-action>
             <calcite-action text="About" icon="information" id="btn-about"></calcite-action>
           </calcite-action-group>
         </calcite-action-bar>
+
+        <!-- Expandable panels triggered by action bar -->
+        <calcite-panel heading="Geology Layers" id="geology-panel" closed>
+          <div id="overlay-controls" style="display: flex; flex-direction: column; gap: 8px; padding: 8px;"></div>
+        </calcite-panel>
+
+        <calcite-panel heading="Earth Scale Comparison" id="earth-scale-panel" closed>
+          <div style="padding: 8px;">
+            <calcite-select id="region-select" label="Region" scale="s">
+              <calcite-option value="" selected>Choose a region...</calcite-option>
+              <calcite-option value="kentucky">Kentucky</calcite-option>
+              <calcite-option value="texas">Texas</calcite-option>
+              <calcite-option value="france">France</calcite-option>
+              <calcite-option value="japan">Japan (Honshu)</calcite-option>
+            </calcite-select>
+            <calcite-button id="btn-place-region" appearance="solid" kind="brand" scale="s" width="full" style="margin-top: 8px;">
+              Place at Rover Position
+            </calcite-button>
+            <calcite-button id="btn-clear-region" appearance="outline" kind="neutral" scale="s" width="full" style="margin-top: 4px;">
+              Clear
+            </calcite-button>
+          </div>
+        </calcite-panel>
+
+        <calcite-panel heading="Panoramas" id="panorama-panel" closed>
+          <div id="panorama-list" class="panorama-list" style="padding: 8px;"></div>
+        </calcite-panel>
+
+        <calcite-panel heading="Latest Raw Images" id="raw-images-panel" closed>
+          <div id="raw-images" style="padding: 8px;"></div>
+        </calcite-panel>
       </calcite-shell-panel>
 
       <!-- Center: Mars 3D Globe -->

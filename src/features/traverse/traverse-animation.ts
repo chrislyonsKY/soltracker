@@ -17,6 +17,7 @@ interface WaypointEntry {
   lat: number;
   elevation: number | null;
   distanceMeters: number;
+  yaw: number | null;
 }
 
 const state: AnimationState = {
@@ -59,6 +60,7 @@ export function registerWaypoints(rover: RoverName, features: GeoJSON.Feature[])
         lat: coords[1],
         elevation: coords[2] ?? props.elev_geoid ?? null,
         distanceMeters: props.dist_total_m ?? 0,
+        yaw: props.yaw ?? null,
       };
     })
     .sort((a, b) => a.sol - b.sol);
@@ -185,7 +187,12 @@ function applySol(sol: number): void {
   const waypoint = findWaypointAtSol(state.activeRover, sol);
   if (waypoint) {
     updateRoverPosition(state.activeRover, waypoint.lon, waypoint.lat);
-    updateRoverModelPosition(state.activeRover, waypoint.lon, waypoint.lat);
+    updateRoverModelPosition(
+      state.activeRover,
+      waypoint.lon,
+      waypoint.lat,
+      waypoint.yaw ?? undefined
+    );
 
     // Camera follow (don't await — fire and forget to avoid blocking animation)
     if (state.followCamera && state.isPlaying) {

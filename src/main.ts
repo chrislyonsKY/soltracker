@@ -31,6 +31,11 @@ import { initIngenuity, setIngenuityVisibility } from "./features/traverse/ingen
 import { computeDriveAnalytics, renderDriveAnalytics } from "./features/dashboard/drive-analytics.ts";
 import { initDSNStatus } from "./features/dashboard/dsn-status.ts";
 import { initSolCounter } from "./features/dashboard/sol-counter.ts";
+import { initSampleMap, setSampleVisibility } from "./features/samples/sample-map.ts";
+import { initGeologicalOverlays } from "./features/overlays/geological-overlay.ts";
+import { initEarthScale, placeEarthRegion, clearEarthScale } from "./features/overlays/earth-scale.ts";
+import { initRawImageFeed } from "./features/photos/raw-images.ts";
+import { initPanoramaViewer } from "./features/photos/panorama-viewer.ts";
 import { ROVERS, ROVER_NAMES, getNasaApiKey, setNasaApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
 
@@ -128,7 +133,27 @@ async function bootstrap(): Promise<void> {
     // Step 17: Initialize "This Sol in History" (F16)
     initSolCounter();
 
-    // Step 17: Wire settings dialog
+    // Step 18: Sample collection map (F8)
+    initSampleMap(view);
+    initSampleToggle();
+
+    // Step 19: Geological overlays (F14)
+    initGeologicalOverlays(view);
+    initGeologyToggle();
+
+    // Step 20: Earth scale comparison (F17)
+    initEarthScale(view);
+    initEarthScaleControls();
+
+    // Step 21: Raw image feed (F20)
+    initRawImageFeed();
+    initRawImagesToggle();
+
+    // Step 22: Panorama viewer (F21)
+    initPanoramaViewer();
+    initPanoramaToggle();
+
+    // Step 23: Wire settings dialog
     initSettingsDialog();
 
   } catch (err) {
@@ -390,6 +415,100 @@ function initSettingsDialog(): void {
 
   btnClose?.addEventListener("click", () => {
     dialog?.removeAttribute("open");
+  });
+}
+
+/** Toggle sample layer visibility from action bar. */
+function initSampleToggle(): void {
+  const btn = document.getElementById("btn-samples");
+  if (!btn) return;
+  let visible = true;
+  btn.addEventListener("click", () => {
+    visible = !visible;
+    setSampleVisibility(visible);
+    btn.toggleAttribute("active", visible);
+  });
+}
+
+/** Toggle geology panel from action bar. */
+function initGeologyToggle(): void {
+  const btn = document.getElementById("btn-geology");
+  const panel = document.getElementById("geology-panel");
+  if (!btn || !panel) return;
+  btn.addEventListener("click", () => {
+    const isClosed = panel.hasAttribute("closed");
+    if (isClosed) {
+      panel.removeAttribute("closed");
+      btn.setAttribute("active", "");
+    } else {
+      panel.setAttribute("closed", "");
+      btn.removeAttribute("active");
+    }
+  });
+}
+
+/** Wire Earth scale comparison controls. */
+function initEarthScaleControls(): void {
+  const btn = document.getElementById("btn-earth-scale");
+  const panel = document.getElementById("earth-scale-panel");
+  const placeBtn = document.getElementById("btn-place-region");
+  const clearBtn = document.getElementById("btn-clear-region");
+  const regionSelect = document.getElementById("region-select") as HTMLSelectElement | null;
+
+  btn?.addEventListener("click", () => {
+    if (!panel) return;
+    const isClosed = panel.hasAttribute("closed");
+    if (isClosed) {
+      panel.removeAttribute("closed");
+      btn.setAttribute("active", "");
+    } else {
+      panel.setAttribute("closed", "");
+      btn.removeAttribute("active");
+    }
+  });
+
+  placeBtn?.addEventListener("click", () => {
+    const regionId = regionSelect?.value;
+    if (!regionId) return;
+    const state = getAnimationState();
+    const config = ROVERS[state.activeRover];
+    placeEarthRegion(regionId, config.landingLon, config.landingLat);
+  });
+
+  clearBtn?.addEventListener("click", () => clearEarthScale());
+}
+
+/** Toggle panorama panel from action bar. */
+function initPanoramaToggle(): void {
+  const btn = document.getElementById("btn-panoramas");
+  const panel = document.getElementById("panorama-panel");
+  if (!btn || !panel) return;
+  btn.addEventListener("click", () => {
+    const isClosed = panel.hasAttribute("closed");
+    if (isClosed) {
+      panel.removeAttribute("closed");
+      btn.setAttribute("active", "");
+    } else {
+      panel.setAttribute("closed", "");
+      btn.removeAttribute("active");
+    }
+  });
+}
+
+/** Toggle raw images panel from action bar. */
+function initRawImagesToggle(): void {
+  const btn = document.getElementById("btn-raw-images");
+  const panel = document.getElementById("raw-images-panel");
+  if (!btn || !panel) return;
+  btn.addEventListener("click", () => {
+    const isClosed = panel.hasAttribute("closed");
+    if (isClosed) {
+      panel.removeAttribute("closed");
+      btn.setAttribute("active", "");
+    } else {
+      panel.setAttribute("closed", "");
+      btn.removeAttribute("active");
+    }
   });
 }
 
