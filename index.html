@@ -310,29 +310,24 @@
 
     <!-- Settings Dialog -->
     <calcite-dialog id="settings-dialog" heading="Settings" kind="brand" scale="m">
-      <calcite-label>
-        Esri API Key
-        <calcite-input id="esri-key-input" type="text" placeholder="Esri developer API key (AAPK...)" clearable></calcite-input>
-      </calcite-label>
-      <calcite-notice open icon="check-circle" scale="s" kind="success" style="margin-top: 4px;">
-        <span slot="message">Esri key enables premium basemaps and removes tile rate limits. Reload after saving.</span>
+      <calcite-notice open icon="check-circle" scale="s" kind="success">
+        <span slot="message">All APIs are pre-configured. These fields are only needed to override the default keys.</span>
       </calcite-notice>
 
-      <calcite-label style="margin-top: 16px;">
-        NASA API Key
-        <calcite-input id="api-key-input" type="text" placeholder="Enter your api.nasa.gov key" clearable></calcite-input>
+      <calcite-label style="margin-top: 12px;">
+        Esri API Key (optional override)
+        <calcite-input id="esri-key-input" type="text" placeholder="Leave blank to use default" clearable></calcite-input>
       </calcite-label>
-      <calcite-notice open icon="information" scale="s" style="margin-top: 4px;">
-        <span slot="message">Get a free key at <a href="https://api.nasa.gov" target="_blank" rel="noopener">api.nasa.gov</a>. Without one, photo requests are limited to 30/hour.</span>
-      </calcite-notice>
 
-      <calcite-label style="margin-top: 16px;">
-        Anthropic API Key (AI Narrator)
-        <calcite-input id="anthropic-key-input" type="text" placeholder="Anthropic API key (sk-ant-...)" clearable></calcite-input>
+      <calcite-label style="margin-top: 8px;">
+        NASA API Key (optional override)
+        <calcite-input id="api-key-input" type="text" placeholder="Leave blank to use default" clearable></calcite-input>
       </calcite-label>
-      <calcite-notice open icon="lightbulb" scale="s" style="margin-top: 4px;">
-        <span slot="message">Powers the AI Science Narrator. Get a key at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>.</span>
-      </calcite-notice>
+
+      <calcite-label style="margin-top: 8px;">
+        Anthropic API Key (optional override)
+        <calcite-input id="anthropic-key-input" type="text" placeholder="Leave blank to use default" clearable></calcite-input>
+      </calcite-label>
 
       <calcite-button slot="footer-end" id="btn-save-key" appearance="solid" kind="brand">Save</calcite-button>
       <calcite-button slot="footer-start" id="btn-close-settings" appearance="outline" kind="neutral">Close</calcite-button>

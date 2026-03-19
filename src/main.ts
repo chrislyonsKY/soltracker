@@ -39,7 +39,7 @@ import { initRawImageFeed } from "./features/photos/raw-images.ts";
 import { initPanoramaViewer } from "./features/photos/panorama-viewer.ts";
 import { initBasemapToggle } from "./features/mars-globe/basemap-toggle.ts";
 import { initAboutDialog } from "./features/about-dialog.ts";
-import { initAINarrator, setAnthropicKey, getAnthropicKey } from "./features/ai-narrator.ts";
+import { initAINarrator, setAnthropicKey } from "./features/ai-narrator.ts";
 import { playBlip, playStart, playStop, playSwitch, toggleSound, isSoundEnabled } from "./features/sound-design.ts";
 import { ROVERS, ROVER_NAMES, setNasaApiKey, getEsriApiKey, setEsriApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
@@ -419,7 +419,7 @@ function initSettingsDialog(): void {
       dialog.setAttribute("open", "");
       if (nasaInput) nasaInput.value = "";
       if (esriInput) esriInput.value = "";
-      if (anthropicInput) anthropicInput.value = getAnthropicKey() ?? "";
+      if (anthropicInput) anthropicInput.value = "";
     }
   });
 
