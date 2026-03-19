@@ -10,7 +10,7 @@ import SpatialReference from "@arcgis/core/geometry/SpatialReference.js";
 import Point from "@arcgis/core/geometry/Point.js";
 import type SceneView from "@arcgis/core/views/SceneView.js";
 import { MARS_WKID, ROVERS } from "../../config.ts";
-import { createMarsElevation, createMarsImagery, createMarsShadedRelief } from "./mars-layers.ts";
+import { createMarsElevation, createMarsImagery, createMarsCTX, createMarsShadedRelief } from "./mars-layers.ts";
 
 let sceneEl: ArcgisScene | null = null;
 let viewInstance: SceneView | null = null;
@@ -27,11 +27,12 @@ export async function initMarsScene(): Promise<SceneView> {
 
   const marsElevation = createMarsElevation();
   const marsImagery = createMarsImagery();
+  const marsCTX = createMarsCTX();
   const marsShadedRelief = createMarsShadedRelief();
 
   const map = new Map({
     ground: { layers: [marsElevation] },
-    layers: [marsImagery, marsShadedRelief],
+    layers: [marsImagery, marsCTX, marsShadedRelief],
   });
 
   el.map = map;

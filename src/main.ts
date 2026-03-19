@@ -310,10 +310,14 @@ function updatePlayButton(isPlaying: boolean): void {
   const icon = document.getElementById("play-icon");
   const btn = document.getElementById("btn-play");
   if (icon) {
-    icon.setAttribute("icon", isPlaying ? "pause" : "play");
+    // Swap SVG path between play triangle and pause bars
+    icon.innerHTML = isPlaying
+      ? '<rect x="2" y="1" width="3.5" height="12" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" fill="currentColor"/>'
+      : '<path d="M3 1l10 6-10 6z" fill="currentColor"/>';
   }
   if (btn) {
     btn.setAttribute("aria-label", isPlaying ? "Pause animation" : "Play animation");
+    btn.setAttribute("title", isPlaying ? "Pause" : "Play");
   }
 }
 

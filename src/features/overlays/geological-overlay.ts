@@ -13,22 +13,27 @@ interface OverlayConfig {
   opacity: number;
 }
 
+/**
+ * Mars Trek WMTS uses {z}/{y}/{x} (TileMatrix/TileRow/TileCol).
+ * ArcGIS WebTileLayer uses {level}/{col}/{row}.
+ * Mapping: {z}={level}, {y}={row}, {x}={col}
+ */
 const OVERLAYS: Record<string, OverlayConfig> = {
   "thermal-inertia": {
     title: "TES Thermal Inertia",
-    url: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_TES_ThermalInertia_mosaic_global_7410m/1.0.0/default/default028mm/{z}/{y}/{x}.png",
+    url: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_TES_ThermalInertia_mosaic_global_7410m/1.0.0/default/default028mm/{level}/{row}/{col}.png",
     type: "webtile",
     opacity: 0.5,
   },
   "mola-colorshade": {
     title: "MOLA Colorized Hillshade",
-    url: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg",
+    url: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/{level}/{row}/{col}.jpg",
     type: "webtile",
     opacity: 0.5,
   },
   "themis-day": {
-    title: "THEMIS IR Day",
-    url: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MO_THEMIS-IR-Day_mosaic_global_100m_v12_clon0_ly/1.0.0/default/default028mm/{z}/{y}/{x}.jpg",
+    title: "THEMIS IR Day (100m)",
+    url: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MO_THEMIS-IR-Day_mosaic_global_100m_v12_clon0_ly/1.0.0/default/default028mm/{level}/{row}/{col}.jpg",
     type: "webtile",
     opacity: 0.5,
   },

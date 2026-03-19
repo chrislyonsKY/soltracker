@@ -56,35 +56,31 @@ function parseHash(): UrlState {
   const hash = window.location.hash.replace(/^#\/?/, "");
   if (!hash) return {};
 
-  const params = new URLSearchParams(hash.replace(/\//g, "&").replace(/([^&=]+)\/([^&=]+)/g, "$1=$2"));
-
-  // Also try path-style: #/rover/perseverance/sol/123
-  const pathMatch = hash.match(/rover\/(\w+)(?:\/sol\/(\d+))?/);
-
   const state: UrlState = {};
 
-  const roverParam = pathMatch?.[1] ?? params.get("rover");
-  if (roverParam && VALID_ROVERS.includes(roverParam as RoverName)) {
-    state.rover = roverParam as RoverName;
+  // Parse path-style segments: rover/perseverance/sol/1805
+  const pathMatch = hash.match(/rover\/(\w+)/);
+  if (pathMatch && VALID_ROVERS.includes(pathMatch[1] as RoverName)) {
+    state.rover = pathMatch[1] as RoverName;
   }
 
-  const solParam = pathMatch?.[2] ?? params.get("sol");
-  if (solParam) state.sol = parseInt(solParam, 10);
+  const solMatch = hash.match(/sol\/(\d+)/);
+  if (solMatch) state.sol = parseInt(solMatch[1], 10);
 
-  const lon = params.get("lon");
-  if (lon) state.lon = parseFloat(lon);
+  // Parse key=value segments separated by / or &
+  // Handles: lon=98.3421/lat=12.0884 or lon=98.3421&lat=12.0884
+  const kvPairs = hash.match(/(\w+)=([-\d.]+)/g) ?? [];
+  const params = new Map<string, string>();
+  for (const pair of kvPairs) {
+    const [key, val] = pair.split("=");
+    params.set(key, val);
+  }
 
-  const lat = params.get("lat");
-  if (lat) state.lat = parseFloat(lat);
-
-  const zoom = params.get("zoom");
-  if (zoom) state.zoom = parseFloat(zoom);
-
-  const tilt = params.get("tilt");
-  if (tilt) state.tilt = parseFloat(tilt);
-
-  const heading = params.get("heading");
-  if (heading) state.heading = parseFloat(heading);
+  if (params.has("lon")) state.lon = parseFloat(params.get("lon")!);
+  if (params.has("lat")) state.lat = parseFloat(params.get("lat")!);
+  if (params.has("zoom")) state.zoom = parseFloat(params.get("zoom")!);
+  if (params.has("tilt")) state.tilt = parseFloat(params.get("tilt")!);
+  if (params.has("heading")) state.heading = parseFloat(params.get("heading")!);
 
   return state;
 }
