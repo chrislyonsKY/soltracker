@@ -29,11 +29,19 @@ import type { RoverName } from "../../types.ts";
  * - Curiosity: https://mars.nasa.gov/system/resources/gltf_files/24584_Curiosity_static.glb
  * - MER: https://mars.nasa.gov/system/resources/gltf_files/24883_MER_static.glb
  */
-const ROVER_MODEL_URLS: Record<RoverName, string> = {
-  perseverance: "./models/perseverance.glb",
-  curiosity: "./models/curiosity.glb",
-  opportunity: "./models/mer.glb",
-  spirit: "./models/mer.glb",
+/** Resolve model URL relative to the app's base URL. */
+function resolveModelUrl(filename: string): string {
+  // In production (GitHub Pages), base may be /soltracker/
+  // In dev, it's /. Use the current page origin + path.
+  const base = new URL(".", window.location.href).href;
+  return `${base}models/${filename}`;
+}
+
+const ROVER_MODEL_FILES: Record<RoverName, string> = {
+  perseverance: "perseverance.glb",
+  curiosity: "curiosity.glb",
+  opportunity: "mer.glb",
+  spirit: "mer.glb",
 };
 
 /** Rover height in meters for model scaling */
@@ -98,8 +106,9 @@ export function initRoverModels(view: SceneView): void {
  * @returns PointSymbol3D configured with the rover's GLB model
  */
 function create3DModelSymbol(rover: RoverName): PointSymbol3D {
-  const modelUrl = ROVER_MODEL_URLS[rover];
+  const modelUrl = resolveModelUrl(ROVER_MODEL_FILES[rover]);
   const height = ROVER_HEIGHTS[rover];
+  console.info(`Loading 3D model for ${rover}: ${modelUrl}`);
 
   return new PointSymbol3D({
     symbolLayers: [

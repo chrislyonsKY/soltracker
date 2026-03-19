@@ -6,6 +6,7 @@
 import type { AnimationState, RoverName, SolChangeDetail } from "../../types.ts";
 import { AnimationTimer } from "../../utils/animation-timer.ts";
 import { solToEarthDate } from "../../utils/sol-date.ts";
+import { ROVERS } from "../../config.ts";
 import { setTraverseFilter, updateRoverPosition } from "./traverse-renderer.ts";
 import { updateRoverModelPosition } from "./rover-models.ts";
 import { flyTo } from "../mars-globe/mars-scene.ts";
@@ -87,8 +88,25 @@ export function setActiveRover(rover: RoverName): void {
   state.maxSol = waypoints?.length ? waypoints[waypoints.length - 1].sol : 0;
   state.currentSol = state.maxSol;
 
-  applySol(state.currentSol);
+  // Always emit state change so dashboard updates, even with no waypoints
   emitStateChange();
+
+  if (state.maxSol > 0) {
+    applySol(state.currentSol);
+  } else {
+    // No waypoints — emit sol-change with landing coordinates
+    const config = ROVERS[rover];
+    const detail: SolChangeDetail = {
+      rover,
+      sol: 0,
+      lon: config.landingLon,
+      lat: config.landingLat,
+      elevation: null,
+      distanceMeters: 0,
+      earthDate: solToEarthDate(rover, 0),
+    };
+    document.dispatchEvent(new CustomEvent("sol-change", { detail }));
+  }
 }
 
 /** Start playback. */

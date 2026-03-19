@@ -335,11 +335,7 @@ function initIngenuityToggle(): void {
   btn.addEventListener("click", () => {
     visible = !visible;
     setIngenuityVisibility(visible);
-    if (visible) {
-      btn.removeAttribute("appearance");
-    } else {
-      btn.setAttribute("appearance", "transparent");
-    }
+    btn.classList.toggle("hidden-rover", !visible);
   });
 }
 

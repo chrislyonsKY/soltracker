@@ -58,19 +58,19 @@
 
     <!-- Left: Tool Buttons -->
     <div class="tool-buttons">
-      <button class="tool-btn" id="btn-samples" title="Sample Tubes">
+      <button class="tool-btn" id="btn-samples" title="Sample Tubes" aria-label="Toggle sample tube locations">
         <calcite-icon icon="point" scale="s"></calcite-icon>
       </button>
-      <button class="tool-btn" id="btn-geology" title="Geology Layers">
+      <button class="tool-btn" id="btn-geology" title="Geology Layers" aria-label="Toggle geological overlay layers">
         <calcite-icon icon="layers" scale="s"></calcite-icon>
       </button>
-      <button class="tool-btn" id="btn-earth-scale" title="Earth Scale">
+      <button class="tool-btn" id="btn-earth-scale" title="Earth Scale" aria-label="Earth scale comparison tool">
         <calcite-icon icon="measure" scale="s"></calcite-icon>
       </button>
-      <button class="tool-btn" id="btn-panoramas" title="Panoramas">
+      <button class="tool-btn" id="btn-panoramas" title="Panoramas" aria-label="View Mars panoramas">
         <calcite-icon icon="image" scale="s"></calcite-icon>
       </button>
-      <button class="tool-btn" id="btn-raw-images" title="Raw Images">
+      <button class="tool-btn" id="btn-raw-images" title="Raw Images" aria-label="View latest raw images from Mars">
         <calcite-icon icon="camera-flash" scale="s"></calcite-icon>
       </button>
     </div>
@@ -237,7 +237,7 @@
           <calcite-icon icon="video" scale="s"></calcite-icon>
         </button>
       </div>
-      <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label-handles style="flex: 1;"></calcite-slider>
+      <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label="Sol Timeline" label-handles style="flex: 1;"></calcite-slider>
       <span id="sol-display" class="sol-display" aria-live="polite">SOL 0 / --</span>
     </div>
 

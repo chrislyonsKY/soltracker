@@ -65,8 +65,10 @@ function renderPhotos(container: HTMLElement, photos: NASAPhoto[]): void {
 
   container.innerHTML = "";
   for (const photo of photos.slice(0, 25)) {
-    const thumb = document.createElement("div");
+    const thumb = document.createElement("button");
+    thumb.type = "button";
     thumb.className = "photo-thumb";
+    thumb.setAttribute("aria-label", `${photo.camera.full_name} photo from Sol ${photo.sol}`);
     thumb.innerHTML = `
       <img src="${photo.img_src}" alt="${photo.camera.full_name} — Sol ${photo.sol}" loading="lazy" />
       <span class="photo-cam-label">${photo.camera.name}</span>
