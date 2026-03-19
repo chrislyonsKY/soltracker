@@ -12,12 +12,16 @@
       <!-- Left: Action bar with rover selector -->
       <calcite-shell-panel slot="panel-start" display-mode="float">
         <calcite-action-bar slot="action-bar">
-          <calcite-action text="Perseverance" icon="pin" data-rover="perseverance"></calcite-action>
-          <calcite-action text="Curiosity" icon="pin" data-rover="curiosity"></calcite-action>
-          <calcite-action text="Opportunity" icon="pin" data-rover="opportunity"></calcite-action>
-          <calcite-action text="Spirit" icon="pin" data-rover="spirit"></calcite-action>
-          <calcite-action slot="actions-end" text="Settings" icon="gear"></calcite-action>
-          <calcite-action slot="actions-end" text="About" icon="information"></calcite-action>
+          <calcite-action-group>
+            <calcite-action text="Perseverance" icon="pin" data-rover="perseverance" active></calcite-action>
+            <calcite-action text="Curiosity" icon="pin" data-rover="curiosity"></calcite-action>
+            <calcite-action text="Opportunity" icon="pin" data-rover="opportunity"></calcite-action>
+            <calcite-action text="Spirit" icon="pin" data-rover="spirit"></calcite-action>
+          </calcite-action-group>
+          <calcite-action-group slot="actions-end">
+            <calcite-action text="Settings" icon="gear" id="btn-settings"></calcite-action>
+            <calcite-action text="About" icon="information" id="btn-about"></calcite-action>
+          </calcite-action-group>
         </calcite-action-bar>
       </calcite-shell-panel>
 
@@ -27,34 +31,125 @@
         <arcgis-scene></arcgis-scene>
       </div>
 
-      <!-- Right: Dashboard panel (collapsible) -->
+      <!-- Right: Dashboard panel -->
       <calcite-shell-panel slot="panel-end" display-mode="float" width-scale="m">
         <calcite-panel heading="Mission Dashboard" id="dashboard-panel">
-          <calcite-block heading="Rover Stats" open>
-            <p id="dashboard-rover-name">Perseverance</p>
-            <p id="dashboard-sol">Sol --</p>
-            <p id="dashboard-date">--</p>
-            <p id="dashboard-distance">--</p>
-            <p id="dashboard-status">--</p>
+          <calcite-block heading="Rover Stats" open id="stats-block">
+            <calcite-icon icon="exploration" slot="icon" scale="s"></calcite-icon>
+            <div class="stat-grid">
+              <div class="stat-item">
+                <span class="stat-label">Rover</span>
+                <span class="stat-value" id="dashboard-rover-name">Perseverance</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Current Sol</span>
+                <span class="stat-value" id="dashboard-sol">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Earth Date</span>
+                <span class="stat-value" id="dashboard-date">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Distance</span>
+                <span class="stat-value" id="dashboard-distance">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Status</span>
+                <span class="stat-value" id="dashboard-status">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Location</span>
+                <span class="stat-value" id="dashboard-location">--</span>
+              </div>
+            </div>
           </calcite-block>
-          <calcite-block heading="Mars Weather" collapsible>
-            <p id="weather-temp">--</p>
-            <p id="weather-pressure">--</p>
-            <p id="weather-opacity">--</p>
-            <p id="weather-season">--</p>
+
+          <calcite-block heading="Mars Weather" collapsible id="weather-block">
+            <calcite-icon icon="partly-cloudy" slot="icon" scale="s"></calcite-icon>
+            <p class="weather-note">Gale Crater (Curiosity REMS)</p>
+            <div class="stat-grid">
+              <div class="stat-item">
+                <span class="stat-label">Temperature</span>
+                <span class="stat-value" id="weather-temp">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Pressure</span>
+                <span class="stat-value" id="weather-pressure">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Opacity</span>
+                <span class="stat-value" id="weather-opacity">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Season</span>
+                <span class="stat-value" id="weather-season">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Sunrise</span>
+                <span class="stat-value" id="weather-sunrise">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Sunset</span>
+                <span class="stat-value" id="weather-sunset">--</span>
+              </div>
+            </div>
+          </calcite-block>
+
+          <calcite-block heading="Photos" collapsible id="photos-block">
+            <calcite-icon icon="camera" slot="icon" scale="s"></calcite-icon>
+            <div id="camera-filter-container">
+              <calcite-select id="camera-select" label="Camera" scale="s">
+                <calcite-option value="all" selected>All Cameras</calcite-option>
+              </calcite-select>
+            </div>
+            <div id="photo-gallery" class="photo-grid">
+              <p class="photo-empty">Select a sol to view photos</p>
+            </div>
           </calcite-block>
         </calcite-panel>
       </calcite-shell-panel>
 
-      <!-- Bottom: Sol timeline (placeholder) -->
+      <!-- Bottom: Sol timeline -->
       <calcite-shell-panel slot="panel-bottom" display-mode="float" layout="horizontal">
-        <div id="timeline-container" style="padding: 8px 16px; display: flex; align-items: center; gap: 12px;">
-          <calcite-button id="btn-play" icon-start="play" appearance="transparent" kind="neutral" scale="s" aria-label="Play animation"></calcite-button>
-          <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label-handles label-ticks ticks="200" style="flex: 1;"></calcite-slider>
-          <span id="sol-display" style="color: #ccc; white-space: nowrap; min-width: 120px;">Sol 0 / --</span>
+        <div id="timeline-container">
+          <div class="timeline-controls">
+            <calcite-button id="btn-step-back" icon-start="chevron-left" appearance="transparent" kind="neutral" scale="s" aria-label="Previous sol"></calcite-button>
+            <calcite-button id="btn-play" icon-start="play" appearance="transparent" kind="neutral" scale="s" aria-label="Play animation"></calcite-button>
+            <calcite-button id="btn-step-forward" icon-start="chevron-right" appearance="transparent" kind="neutral" scale="s" aria-label="Next sol"></calcite-button>
+            <calcite-select id="speed-select" label="Speed" scale="s" style="width: 80px;">
+              <calcite-option value="1" selected>1x</calcite-option>
+              <calcite-option value="5">5x</calcite-option>
+              <calcite-option value="10">10x</calcite-option>
+              <calcite-option value="50">50x</calcite-option>
+            </calcite-select>
+            <calcite-button id="btn-follow" icon-start="gps-on" appearance="transparent" kind="neutral" scale="s" aria-label="Toggle camera follow" active></calcite-button>
+          </div>
+          <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label-handles style="flex: 1;"></calcite-slider>
+          <span id="sol-display" class="sol-display" aria-live="polite">Sol 0 / --</span>
         </div>
       </calcite-shell-panel>
     </calcite-shell>
+
+    <!-- BYOK API Key Dialog -->
+    <calcite-dialog id="settings-dialog" heading="Settings" kind="brand" scale="m">
+      <calcite-label>
+        NASA API Key
+        <calcite-input id="api-key-input" type="text" placeholder="Enter your api.nasa.gov key" clearable></calcite-input>
+      </calcite-label>
+      <calcite-notice open icon="information" scale="s" style="margin-top: 8px;">
+        <span slot="message">Get a free key at <a href="https://api.nasa.gov" target="_blank" rel="noopener">api.nasa.gov</a>. Without one, photo requests are limited to 30/hour.</span>
+      </calcite-notice>
+      <calcite-button slot="footer-end" id="btn-save-key" appearance="solid" kind="brand">Save</calcite-button>
+      <calcite-button slot="footer-start" id="btn-close-settings" appearance="outline" kind="neutral">Close</calcite-button>
+    </calcite-dialog>
+
+    <!-- Photo Lightbox Dialog -->
+    <calcite-dialog id="photo-dialog" heading="Rover Photo" scale="l" width-scale="l">
+      <div id="photo-lightbox" style="text-align: center;">
+        <img id="lightbox-img" src="" alt="Mars rover photo" style="max-width: 100%; max-height: 70vh; border-radius: 4px;" />
+        <div id="lightbox-meta" style="margin-top: 8px; color: #aaa;"></div>
+      </div>
+    </calcite-dialog>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
