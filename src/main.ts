@@ -10,6 +10,7 @@ import { defineCustomElements } from "@esri/calcite-components/dist/loader";
 import "./styles/main.css";
 import "./styles/components.css";
 
+import esriConfig from "@arcgis/core/config.js";
 import { initMarsScene, flyTo } from "./features/mars-globe/mars-scene.ts";
 import { loadAllTraverses, getMaxSol } from "./features/traverse/traverse-loader.ts";
 import { createTraverseLayers, setRoverVisibility } from "./features/traverse/traverse-renderer.ts";
@@ -36,7 +37,7 @@ import { initGeologicalOverlays } from "./features/overlays/geological-overlay.t
 import { initEarthScale, placeEarthRegion, clearEarthScale } from "./features/overlays/earth-scale.ts";
 import { initRawImageFeed } from "./features/photos/raw-images.ts";
 import { initPanoramaViewer } from "./features/photos/panorama-viewer.ts";
-import { ROVERS, ROVER_NAMES, getNasaApiKey, setNasaApiKey } from "./config.ts";
+import { ROVERS, ROVER_NAMES, getNasaApiKey, setNasaApiKey, getEsriApiKey, setEsriApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
 
 // Set Calcite asset path for icons/i18n loaded at runtime
@@ -48,6 +49,13 @@ async function bootstrap(): Promise<void> {
   try {
     // Step 1: Register Calcite custom elements
     defineCustomElements(window);
+
+    // Step 1b: Set Esri API key if available
+    const esriKey = getEsriApiKey();
+    if (esriKey) {
+      esriConfig.apiKey = esriKey;
+      console.info("Esri API key loaded from settings");
+    }
 
     // Step 2: Initialize Mars globe (F1)
     const view = await initMarsScene();
@@ -384,22 +392,25 @@ function initSettingsDialog(): void {
   const btnSettings = document.getElementById("btn-settings");
   const btnSave = document.getElementById("btn-save-key");
   const btnClose = document.getElementById("btn-close-settings");
-  const input = document.getElementById("api-key-input") as HTMLInputElement | null;
+  const nasaInput = document.getElementById("api-key-input") as HTMLInputElement | null;
+  const esriInput = document.getElementById("esri-key-input") as HTMLInputElement | null;
 
   btnSettings?.addEventListener("click", () => {
     if (dialog) {
       dialog.setAttribute("open", "");
-      if (input) {
+      if (nasaInput) {
         const key = getNasaApiKey();
-        input.value = key === "DEMO_KEY" ? "" : key;
+        nasaInput.value = key === "DEMO_KEY" ? "" : key;
+      }
+      if (esriInput) {
+        esriInput.value = getEsriApiKey() ?? "";
       }
     }
   });
 
   btnSave?.addEventListener("click", () => {
-    if (input) {
-      setNasaApiKey(input.value.trim());
-    }
+    if (nasaInput) setNasaApiKey(nasaInput.value.trim());
+    if (esriInput) setEsriApiKey(esriInput.value.trim());
     dialog?.removeAttribute("open");
   });
 

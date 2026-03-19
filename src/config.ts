@@ -32,6 +32,7 @@ export const MARS_SOL_SECONDS = 88_775.244;
 // --- API Key Management ---
 
 const NASA_API_KEY_STORAGE = "soltracker_nasa_api_key";
+const ESRI_API_KEY_STORAGE = "soltracker_esri_api_key";
 const NASA_DEMO_KEY = "DEMO_KEY";
 
 /**
@@ -60,6 +61,36 @@ export function setNasaApiKey(key: string): void {
  */
 export function hasUserApiKey(): boolean {
   return localStorage.getItem(NASA_API_KEY_STORAGE) !== null;
+}
+
+// --- Esri API Key Management ---
+
+/**
+ * Get the Esri API key from localStorage.
+ * @returns The API key string or null if not set
+ */
+export function getEsriApiKey(): string | null {
+  return localStorage.getItem(ESRI_API_KEY_STORAGE);
+}
+
+/**
+ * Save an Esri API key to localStorage.
+ * @param key - The API key to store
+ */
+export function setEsriApiKey(key: string): void {
+  if (key) {
+    localStorage.setItem(ESRI_API_KEY_STORAGE, key);
+  } else {
+    localStorage.removeItem(ESRI_API_KEY_STORAGE);
+  }
+}
+
+/**
+ * Check if an Esri API key is configured.
+ * @returns True if an Esri key is stored
+ */
+export function hasEsriApiKey(): boolean {
+  return localStorage.getItem(ESRI_API_KEY_STORAGE) !== null;
 }
 
 // --- Rover Metadata ---
