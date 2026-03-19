@@ -44,12 +44,17 @@ const ROVER_MODEL_FILES: Record<RoverName, string> = {
   spirit: "mer.glb",
 };
 
-/** Rover height in meters for model scaling */
+/**
+ * Rover height in meters for model scaling.
+ * Using exaggerated sizes so models are visible from orbit.
+ * The ArcGIS SDK auto-scales ObjectSymbol3DLayer based on view extent,
+ * but we set a base height and enable screen-size scaling.
+ */
 const ROVER_HEIGHTS: Record<RoverName, number> = {
-  perseverance: 2.2,
-  curiosity: 2.1,
-  opportunity: 1.5,
-  spirit: 1.5,
+  perseverance: 500,
+  curiosity: 500,
+  opportunity: 400,
+  spirit: 400,
 };
 
 interface RoverModelEntry {

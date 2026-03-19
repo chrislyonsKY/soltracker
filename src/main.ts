@@ -37,7 +37,11 @@ import { initGeologicalOverlays } from "./features/overlays/geological-overlay.t
 import { initEarthScale, placeEarthRegion, clearEarthScale } from "./features/overlays/earth-scale.ts";
 import { initRawImageFeed } from "./features/photos/raw-images.ts";
 import { initPanoramaViewer } from "./features/photos/panorama-viewer.ts";
-import { ROVERS, ROVER_NAMES, getNasaApiKey, setNasaApiKey, getEsriApiKey, setEsriApiKey } from "./config.ts";
+import { initBasemapToggle } from "./features/mars-globe/basemap-toggle.ts";
+import { initAboutDialog } from "./features/about-dialog.ts";
+import { initAINarrator, setAnthropicKey, getAnthropicKey } from "./features/ai-narrator.ts";
+import { playBlip, playStart, playStop, playSwitch, toggleSound, isSoundEnabled } from "./features/sound-design.ts";
+import { ROVERS, ROVER_NAMES, setNasaApiKey, getEsriApiKey, setEsriApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
 
 // Set Calcite asset path for icons/i18n loaded at runtime
@@ -50,12 +54,9 @@ async function bootstrap(): Promise<void> {
     // Step 1: Register Calcite custom elements
     defineCustomElements(window);
 
-    // Step 1b: Set Esri API key if available
-    const esriKey = getEsriApiKey();
-    if (esriKey) {
-      esriConfig.apiKey = esriKey;
-      console.info("Esri API key loaded from settings");
-    }
+    // Step 1b: Set Esri API key
+    esriConfig.apiKey = getEsriApiKey();
+    console.info("Esri API key configured");
 
     // Step 2: Initialize Mars globe (F1)
     const view = await initMarsScene();
@@ -161,7 +162,19 @@ async function bootstrap(): Promise<void> {
     initPanoramaViewer();
     initPanoramaToggle();
 
-    // Step 23: Wire settings dialog
+    // Step 23: Basemap toggle (F1 enhancement)
+    initBasemapToggle(view);
+
+    // Step 24: AI Science Narrator (F18)
+    initAINarrator();
+
+    // Step 25: About dialog
+    initAboutDialog();
+
+    // Step 26: Sound toggle
+    initSoundToggle();
+
+    // Step 27: Wire settings dialog
     initSettingsDialog();
 
   } catch (err) {
@@ -203,6 +216,7 @@ function initRoverToggle(): void {
         setActiveRover(rover);
         updateSliderRange();
         updateSolDisplay(getAnimationState());
+        playSwitch();
         flyTo(config.landingLat, config.landingLon, 500_000).catch(() => {});
 
         for (const p of pills) {
@@ -225,16 +239,20 @@ function initAnimationControls(): void {
   const slider = document.getElementById("sol-slider") as HTMLInputElement | null;
 
   btnPlay?.addEventListener("click", () => {
+    const wasPlaying = getAnimationState().isPlaying;
     togglePlayPause();
+    if (wasPlaying) playStop(); else playStart();
   });
 
   btnStepBack?.addEventListener("click", () => {
     stepBack();
+    playBlip(660);
     updateSolDisplay(getAnimationState());
   });
 
   btnStepForward?.addEventListener("click", () => {
     stepForward();
+    playBlip(880);
     updateSolDisplay(getAnimationState());
   });
 
@@ -394,23 +412,21 @@ function initSettingsDialog(): void {
   const btnClose = document.getElementById("btn-close-settings");
   const nasaInput = document.getElementById("api-key-input") as HTMLInputElement | null;
   const esriInput = document.getElementById("esri-key-input") as HTMLInputElement | null;
+  const anthropicInput = document.getElementById("anthropic-key-input") as HTMLInputElement | null;
 
   btnSettings?.addEventListener("click", () => {
     if (dialog) {
       dialog.setAttribute("open", "");
-      if (nasaInput) {
-        const key = getNasaApiKey();
-        nasaInput.value = key === "DEMO_KEY" ? "" : key;
-      }
-      if (esriInput) {
-        esriInput.value = getEsriApiKey() ?? "";
-      }
+      if (nasaInput) nasaInput.value = "";
+      if (esriInput) esriInput.value = "";
+      if (anthropicInput) anthropicInput.value = getAnthropicKey() ?? "";
     }
   });
 
   btnSave?.addEventListener("click", () => {
-    if (nasaInput) setNasaApiKey(nasaInput.value.trim());
-    if (esriInput) setEsriApiKey(esriInput.value.trim());
+    if (nasaInput?.value.trim()) setNasaApiKey(nasaInput.value.trim());
+    if (esriInput?.value.trim()) setEsriApiKey(esriInput.value.trim());
+    if (anthropicInput) setAnthropicKey(anthropicInput.value.trim());
     dialog?.removeAttribute("open");
   });
 
@@ -483,6 +499,18 @@ function initPanoramaToggle(): void {
 /** Wire raw images panel toggle. */
 function initRawImagesToggle(): void {
   togglePanel("btn-raw-images", "raw-images-panel");
+}
+
+/** Wire sound toggle button. */
+function initSoundToggle(): void {
+  const btn = document.getElementById("btn-sound");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    toggleSound();
+    btn.classList.toggle("active", isSoundEnabled());
+    btn.title = isSoundEnabled() ? "Sound on" : "Sound off";
+  });
 }
 
 bootstrap();

@@ -1,4 +1,311 @@
 {
   "type": "FeatureCollection",
-  "features": []
+  "name": "Spirit Traverse",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.4729, -14.5692] },
+      "properties": { "sol": 0, "site": "Columbia Memorial Station", "drive": 0, "x_local": 0.0, "y_local": 0.0, "dist_total_m": 0, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47292, -14.56919] },
+      "properties": { "sol": 12, "site": "First Drive", "drive": 1, "x_local": 1.2, "y_local": 0.6, "dist_total_m": 6, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47297, -14.56917] },
+      "properties": { "sol": 18, "site": "Adirondack", "drive": 3, "x_local": 4.1, "y_local": 1.8, "dist_total_m": 21, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47315, -14.56910] },
+      "properties": { "sol": 30, "site": "Humphrey", "drive": 8, "x_local": 14.6, "y_local": 5.9, "dist_total_m": 68, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47340, -14.56905] },
+      "properties": { "sol": 45, "site": "Mazatzal", "drive": 14, "x_local": 29.2, "y_local": 8.9, "dist_total_m": 145, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47365, -14.56918] },
+      "properties": { "sol": 58, "site": "Route 66", "drive": 20, "x_local": 43.8, "y_local": 1.2, "dist_total_m": 285, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47420, -14.56945] },
+      "properties": { "sol": 72, "site": "Bonneville Rim", "drive": 28, "x_local": 76.0, "y_local": -14.8, "dist_total_m": 480, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47455, -14.56958] },
+      "properties": { "sol": 85, "site": "Bonneville Crater", "drive": 34, "x_local": 96.4, "y_local": -22.5, "dist_total_m": 650, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47520, -14.56990] },
+      "properties": { "sol": 100, "site": "Southeast toward hills", "drive": 42, "x_local": 134.3, "y_local": -41.5, "dist_total_m": 920, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47590, -14.57050] },
+      "properties": { "sol": 115, "site": "Missoula Crater", "drive": 52, "x_local": 175.2, "y_local": -77.1, "dist_total_m": 1250, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47650, -14.57120] },
+      "properties": { "sol": 130, "site": "Lahontan Crater", "drive": 61, "x_local": 210.3, "y_local": -118.6, "dist_total_m": 1650, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47700, -14.57210] },
+      "properties": { "sol": 145, "site": "Approach to Columbia Hills", "drive": 70, "x_local": 239.5, "y_local": -171.9, "dist_total_m": 2200, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47740, -14.57320] },
+      "properties": { "sol": 156, "site": "West Spur, Columbia Hills", "drive": 78, "x_local": 262.9, "y_local": -237.1, "dist_total_m": 3200, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47735, -14.57345] },
+      "properties": { "sol": 180, "site": "Hank's Hollow", "drive": 86, "x_local": 260.0, "y_local": -251.9, "dist_total_m": 3380, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47725, -14.57370] },
+      "properties": { "sol": 210, "site": "Wooly Patch", "drive": 94, "x_local": 254.2, "y_local": -266.7, "dist_total_m": 3520, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47710, -14.57400] },
+      "properties": { "sol": 240, "site": "Clovis outcrop", "drive": 102, "x_local": 245.4, "y_local": -284.5, "dist_total_m": 3680, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47700, -14.57430] },
+      "properties": { "sol": 270, "site": "Ebenezer", "drive": 110, "x_local": 239.6, "y_local": -302.3, "dist_total_m": 3850, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47695, -14.57460] },
+      "properties": { "sol": 300, "site": "Tetl", "drive": 118, "x_local": 236.7, "y_local": -320.1, "dist_total_m": 4020, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47720, -14.57490] },
+      "properties": { "sol": 330, "site": "Wishstone", "drive": 126, "x_local": 251.3, "y_local": -337.9, "dist_total_m": 4200, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47745, -14.57510] },
+      "properties": { "sol": 360, "site": "Champagne", "drive": 134, "x_local": 265.9, "y_local": -349.8, "dist_total_m": 4380, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47760, -14.57540] },
+      "properties": { "sol": 390, "site": "Peace", "drive": 141, "x_local": 274.6, "y_local": -367.6, "dist_total_m": 4550, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47755, -14.57570] },
+      "properties": { "sol": 420, "site": "Watchtower", "drive": 148, "x_local": 271.7, "y_local": -385.4, "dist_total_m": 4730, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47740, -14.57600] },
+      "properties": { "sol": 450, "site": "Husband Hill approach", "drive": 155, "x_local": 263.0, "y_local": -403.2, "dist_total_m": 4920, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47730, -14.57640] },
+      "properties": { "sol": 489, "site": "Husband Hill Summit", "drive": 164, "x_local": 257.1, "y_local": -426.9, "dist_total_m": 5200, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47715, -14.57660] },
+      "properties": { "sol": 520, "site": "Haskin Ridge", "drive": 172, "x_local": 248.4, "y_local": -438.8, "dist_total_m": 5420, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47695, -14.57680] },
+      "properties": { "sol": 550, "site": "Descending Husband Hill", "drive": 180, "x_local": 236.7, "y_local": -450.6, "dist_total_m": 5620, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47670, -14.57710] },
+      "properties": { "sol": 580, "site": "El Dorado dunes", "drive": 188, "x_local": 222.1, "y_local": -468.4, "dist_total_m": 5830, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47650, -14.57740] },
+      "properties": { "sol": 610, "site": "Inner Basin", "drive": 196, "x_local": 210.4, "y_local": -486.2, "dist_total_m": 6020, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47640, -14.57770] },
+      "properties": { "sol": 640, "site": "Southeast Inner Basin", "drive": 203, "x_local": 204.5, "y_local": -504.0, "dist_total_m": 6180, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47625, -14.57790] },
+      "properties": { "sol": 670, "site": "McCool Hill approach", "drive": 210, "x_local": 195.8, "y_local": -515.9, "dist_total_m": 6320, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47610, -14.57810] },
+      "properties": { "sol": 700, "site": "Low Ridge", "drive": 217, "x_local": 187.0, "y_local": -527.8, "dist_total_m": 6470, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47600, -14.57830] },
+      "properties": { "sol": 730, "site": "Tyrone area", "drive": 224, "x_local": 181.1, "y_local": -539.6, "dist_total_m": 6590, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47585, -14.57845] },
+      "properties": { "sol": 755, "site": "Home Plate approach", "drive": 230, "x_local": 172.4, "y_local": -548.5, "dist_total_m": 6700, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47575, -14.57860] },
+      "properties": { "sol": 779, "site": "Home Plate", "drive": 236, "x_local": 166.5, "y_local": -557.4, "dist_total_m": 6810, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47565, -14.57870] },
+      "properties": { "sol": 810, "site": "Home Plate East", "drive": 242, "x_local": 160.7, "y_local": -563.3, "dist_total_m": 6900, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47560, -14.57855] },
+      "properties": { "sol": 850, "site": "Home Plate North", "drive": 250, "x_local": 157.7, "y_local": -554.4, "dist_total_m": 6990, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47570, -14.57840] },
+      "properties": { "sol": 900, "site": "Home Plate circumnavigation", "drive": 260, "x_local": 163.6, "y_local": -545.5, "dist_total_m": 7070, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47580, -14.57865] },
+      "properties": { "sol": 950, "site": "Home Plate South", "drive": 268, "x_local": 169.5, "y_local": -560.4, "dist_total_m": 7130, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47575, -14.57875] },
+      "properties": { "sol": 1000, "site": "Home Plate Southwest", "drive": 276, "x_local": 166.5, "y_local": -566.3, "dist_total_m": 7180, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47565, -14.57860] },
+      "properties": { "sol": 1050, "site": "Home Plate West", "drive": 284, "x_local": 160.7, "y_local": -557.4, "dist_total_m": 7230, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47570, -14.57845] },
+      "properties": { "sol": 1100, "site": "Home Plate vicinity", "drive": 292, "x_local": 163.6, "y_local": -548.5, "dist_total_m": 7280, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47582, -14.57862] },
+      "properties": { "sol": 1150, "site": "Silica Valley", "drive": 300, "x_local": 170.6, "y_local": -558.6, "dist_total_m": 7320, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47590, -14.57880] },
+      "properties": { "sol": 1200, "site": "East of Home Plate", "drive": 308, "x_local": 175.3, "y_local": -569.2, "dist_total_m": 7360, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47580, -14.57870] },
+      "properties": { "sol": 1250, "site": "Von Braun area", "drive": 314, "x_local": 169.5, "y_local": -563.3, "dist_total_m": 7400, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47572, -14.57858] },
+      "properties": { "sol": 1300, "site": "Goddard area", "drive": 320, "x_local": 164.8, "y_local": -556.2, "dist_total_m": 7430, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47568, -14.57872] },
+      "properties": { "sol": 1350, "site": "Near Home Plate", "drive": 326, "x_local": 162.4, "y_local": -564.5, "dist_total_m": 7460, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47575, -14.57885] },
+      "properties": { "sol": 1400, "site": "Home Plate SE", "drive": 332, "x_local": 166.5, "y_local": -572.2, "dist_total_m": 7490, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47582, -14.57890] },
+      "properties": { "sol": 1450, "site": "Tsiolkovsky Ridge", "drive": 338, "x_local": 170.6, "y_local": -575.2, "dist_total_m": 7520, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47578, -14.57878] },
+      "properties": { "sol": 1500, "site": "Bonestell area", "drive": 344, "x_local": 168.3, "y_local": -568.1, "dist_total_m": 7550, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47572, -14.57868] },
+      "properties": { "sol": 1550, "site": "Home Plate circuit", "drive": 350, "x_local": 164.8, "y_local": -562.2, "dist_total_m": 7580, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47566, -14.57880] },
+      "properties": { "sol": 1600, "site": "South of Home Plate", "drive": 356, "x_local": 161.2, "y_local": -569.3, "dist_total_m": 7600, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47570, -14.57888] },
+      "properties": { "sol": 1650, "site": "Toward Von Braun", "drive": 362, "x_local": 163.6, "y_local": -574.1, "dist_total_m": 7620, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47576, -14.57895] },
+      "properties": { "sol": 1700, "site": "Von Braun approach", "drive": 368, "x_local": 167.1, "y_local": -578.2, "dist_total_m": 7640, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47580, -14.57900] },
+      "properties": { "sol": 1750, "site": "Near Von Braun", "drive": 374, "x_local": 169.5, "y_local": -581.1, "dist_total_m": 7660, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47574, -14.57892] },
+      "properties": { "sol": 1800, "site": "Route to Troy", "drive": 380, "x_local": 165.9, "y_local": -576.4, "dist_total_m": 7690, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47570, -14.57898] },
+      "properties": { "sol": 1850, "site": "Near Troy", "drive": 385, "x_local": 163.6, "y_local": -580.0, "dist_total_m": 7710, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47568, -14.57902] },
+      "properties": { "sol": 1892, "site": "Troy (embedded)", "drive": 388, "x_local": 162.4, "y_local": -582.3, "dist_total_m": 7730, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47568, -14.57902] },
+      "properties": { "sol": 1950, "site": "Troy (stationary)", "drive": 388, "x_local": 162.4, "y_local": -582.3, "dist_total_m": 7730, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47568, -14.57902] },
+      "properties": { "sol": 2050, "site": "Troy (stationary)", "drive": 388, "x_local": 162.4, "y_local": -582.3, "dist_total_m": 7730, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47568, -14.57902] },
+      "properties": { "sol": 2150, "site": "Troy (stationary)", "drive": 388, "x_local": 162.4, "y_local": -582.3, "dist_total_m": 7730, "rover": "Spirit" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [175.47568, -14.57902] },
+      "properties": { "sol": 2210, "site": "Troy (last contact)", "drive": 388, "x_local": 162.4, "y_local": -582.3, "dist_total_m": 7730, "rover": "Spirit" }
+    }
+  ]
 }

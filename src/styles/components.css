@@ -353,6 +353,98 @@ button.panorama-card {
   letter-spacing: 0.08em;
 }
 
+/* --- Basemap Toggle --- */
+.basemap-toggle-container {
+  position: absolute;
+  bottom: calc(var(--timeline-height, 56px) + 12px);
+  right: calc(var(--panel-width, 340px) + 24px);
+  display: flex;
+  gap: 2px;
+  z-index: 90;
+  background: rgba(14, 14, 20, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.basemap-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.basemap-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+.basemap-btn.active {
+  color: var(--nasa-cyan);
+  background: var(--bg-card);
+}
+
+/* --- AI Narrator --- */
+.narrator-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.narrator-loading {
+  font-size: 0.75rem;
+  color: var(--nasa-cyan);
+  animation: pulse-text 1.5s ease-in-out infinite;
+}
+
+.narrator-text {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.narrator-disclaimer {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.narrator-error {
+  font-size: 0.75rem;
+  color: var(--nasa-red);
+}
+
+@keyframes pulse-text {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* --- Loading Skeleton --- */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  height: 14px;
+  width: 80%;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* --- Responsive --- */
 @media (max-width: 768px) {
   :root {

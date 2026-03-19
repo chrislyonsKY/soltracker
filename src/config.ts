@@ -35,12 +35,16 @@ const NASA_API_KEY_STORAGE = "soltracker_nasa_api_key";
 const ESRI_API_KEY_STORAGE = "soltracker_esri_api_key";
 const NASA_DEMO_KEY = "DEMO_KEY";
 
+/** Built-in API keys for production deployment */
+const BUILTIN_NASA_KEY = "F1kfk5sdRt7C1D7mQgh0H47DoKU4ABIBqupfwy1D";
+const BUILTIN_ESRI_KEY = "AAPTaa8fiUm_NiXDrNsO-32ZBeg..6smMLie1hqJCyixjenySXcmBt22SsdaeGMCH1OaSBjcrmDI9gtJSHyAJ2jtAEYs88UShrUl6JkG8bvxdNtHeQRvR5zCjRM5j-MKpksylaX1kv4d1lvJrypbUVOCDoDPWaN7POVaiegTRu00lpxHAf2HyGR4rpz6tAEOk3tUxXp6fH9GyhZhdYzZ4R62lNfUFVx5VzPOQ6nIO8BZnl_pk40iHwA_6om5yC95tmUOVj2Zxb61HR74XDg..AT1_feTGrsGv";
+
 /**
  * Get the NASA API key from localStorage, falling back to DEMO_KEY.
  * @returns The API key string
  */
 export function getNasaApiKey(): string {
-  return localStorage.getItem(NASA_API_KEY_STORAGE) ?? NASA_DEMO_KEY;
+  return localStorage.getItem(NASA_API_KEY_STORAGE) ?? BUILTIN_NASA_KEY;
 }
 
 /**
@@ -69,8 +73,8 @@ export function hasUserApiKey(): boolean {
  * Get the Esri API key from localStorage.
  * @returns The API key string or null if not set
  */
-export function getEsriApiKey(): string | null {
-  return localStorage.getItem(ESRI_API_KEY_STORAGE);
+export function getEsriApiKey(): string {
+  return localStorage.getItem(ESRI_API_KEY_STORAGE) ?? BUILTIN_ESRI_KEY;
 }
 
 /**

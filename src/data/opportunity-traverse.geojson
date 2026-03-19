@@ -1,4 +1,291 @@
 {
   "type": "FeatureCollection",
-  "features": []
+  "name": "Opportunity Traverse",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.5266, -1.9462] },
+      "properties": { "sol": 0, "site": "Eagle Crater", "drive": 0, "x_local": 0.0, "y_local": 0.0, "dist_total_m": 0, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52655, -1.94622] },
+      "properties": { "sol": 10, "site": "Eagle Crater rim", "drive": 2, "x_local": 3.0, "y_local": -1.2, "dist_total_m": 15, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52640, -1.94630] },
+      "properties": { "sol": 30, "site": "Anatolia", "drive": 8, "x_local": 11.8, "y_local": -5.9, "dist_total_m": 85, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52610, -1.94650] },
+      "properties": { "sol": 60, "site": "Fram Crater", "drive": 18, "x_local": 29.5, "y_local": -17.8, "dist_total_m": 310, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52570, -1.94680] },
+      "properties": { "sol": 90, "site": "En route to Endurance", "drive": 28, "x_local": 53.1, "y_local": -35.5, "dist_total_m": 580, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52530, -1.94710] },
+      "properties": { "sol": 120, "site": "Plains waypoint", "drive": 38, "x_local": 76.8, "y_local": -53.3, "dist_total_m": 820, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52500, -1.94750] },
+      "properties": { "sol": 150, "site": "Endurance approach", "drive": 48, "x_local": 94.5, "y_local": -76.9, "dist_total_m": 1050, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52470, -1.94780] },
+      "properties": { "sol": 180, "site": "Endurance rim traverse", "drive": 56, "x_local": 112.2, "y_local": -94.7, "dist_total_m": 1300, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52440, -1.94770] },
+      "properties": { "sol": 210, "site": "Burns Cliff", "drive": 64, "x_local": 129.9, "y_local": -88.8, "dist_total_m": 1520, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52460, -1.94790] },
+      "properties": { "sol": 250, "site": "Endurance interior", "drive": 72, "x_local": 118.1, "y_local": -100.6, "dist_total_m": 1750, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52490, -1.94760] },
+      "properties": { "sol": 290, "site": "Leaving Endurance", "drive": 80, "x_local": 100.4, "y_local": -82.8, "dist_total_m": 1980, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52500, -1.94740] },
+      "properties": { "sol": 315, "site": "Endurance Crater departure", "drive": 86, "x_local": 94.5, "y_local": -71.0, "dist_total_m": 2130, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52440, -1.94820] },
+      "properties": { "sol": 360, "site": "Vostok", "drive": 96, "x_local": 129.9, "y_local": -118.3, "dist_total_m": 2680, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52380, -1.94900] },
+      "properties": { "sol": 400, "site": "Purgatory Dune", "drive": 108, "x_local": 165.4, "y_local": -165.7, "dist_total_m": 3400, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52300, -1.94980] },
+      "properties": { "sol": 450, "site": "Erebus Highway", "drive": 120, "x_local": 212.7, "y_local": -213.0, "dist_total_m": 4300, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52220, -1.95060] },
+      "properties": { "sol": 500, "site": "Mogollon Rim", "drive": 132, "x_local": 260.0, "y_local": -260.4, "dist_total_m": 5200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52130, -1.95150] },
+      "properties": { "sol": 560, "site": "Erebus Crater", "drive": 146, "x_local": 313.2, "y_local": -313.7, "dist_total_m": 6200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.52020, -1.95260] },
+      "properties": { "sol": 630, "site": "Beagle Crater", "drive": 162, "x_local": 378.2, "y_local": -378.8, "dist_total_m": 7400, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51900, -1.95380] },
+      "properties": { "sol": 700, "site": "Payson outcrop", "drive": 178, "x_local": 449.1, "y_local": -449.9, "dist_total_m": 8600, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51780, -1.95510] },
+      "properties": { "sol": 780, "site": "Victoria approach", "drive": 196, "x_local": 520.0, "y_local": -526.9, "dist_total_m": 9600, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51680, -1.95620] },
+      "properties": { "sol": 860, "site": "Victoria rim north", "drive": 212, "x_local": 579.1, "y_local": -592.0, "dist_total_m": 10400, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51620, -1.95700] },
+      "properties": { "sol": 920, "site": "Cape Verde", "drive": 224, "x_local": 614.6, "y_local": -639.4, "dist_total_m": 10900, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51590, -1.95750] },
+      "properties": { "sol": 952, "site": "Victoria Crater Duck Bay", "drive": 232, "x_local": 632.3, "y_local": -669.0, "dist_total_m": 11200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51610, -1.95730] },
+      "properties": { "sol": 1050, "site": "Victoria interior traverse", "drive": 248, "x_local": 620.5, "y_local": -657.1, "dist_total_m": 11700, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51580, -1.95760] },
+      "properties": { "sol": 1200, "site": "Leaving Victoria", "drive": 268, "x_local": 638.2, "y_local": -674.9, "dist_total_m": 12500, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51450, -1.95900] },
+      "properties": { "sol": 1350, "site": "Marquette Island", "drive": 292, "x_local": 715.1, "y_local": -757.8, "dist_total_m": 14800, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51300, -1.96050] },
+      "properties": { "sol": 1500, "site": "Concepcion Crater", "drive": 316, "x_local": 803.8, "y_local": -846.6, "dist_total_m": 17200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51150, -1.96200] },
+      "properties": { "sol": 1650, "site": "Twin Craters", "drive": 340, "x_local": 892.5, "y_local": -935.5, "dist_total_m": 19500, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.51000, -1.96370] },
+      "properties": { "sol": 1800, "site": "Santa Maria approach", "drive": 364, "x_local": 981.2, "y_local": -1036.2, "dist_total_m": 21800, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50900, -1.96480] },
+      "properties": { "sol": 1900, "site": "Santa Maria Crater", "drive": 380, "x_local": 1040.3, "y_local": -1101.3, "dist_total_m": 23600, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50750, -1.96650] },
+      "properties": { "sol": 2050, "site": "Endeavour approach", "drive": 404, "x_local": 1129.0, "y_local": -1201.9, "dist_total_m": 26200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50600, -1.96830] },
+      "properties": { "sol": 2200, "site": "Spirit Point, Endeavour rim", "drive": 428, "x_local": 1217.8, "y_local": -1308.5, "dist_total_m": 28500, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50560, -1.96870] },
+      "properties": { "sol": 2350, "site": "Cape York", "drive": 448, "x_local": 1241.4, "y_local": -1332.2, "dist_total_m": 30200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50510, -1.96920] },
+      "properties": { "sol": 2500, "site": "Matijevic Hill", "drive": 468, "x_local": 1271.0, "y_local": -1361.8, "dist_total_m": 32000, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50400, -1.97040] },
+      "properties": { "sol": 2681, "site": "Marathon Valley entrance (42.195 km)", "drive": 492, "x_local": 1336.0, "y_local": -1432.8, "dist_total_m": 35500, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50360, -1.97080] },
+      "properties": { "sol": 2800, "site": "Marathon Valley", "drive": 508, "x_local": 1359.7, "y_local": -1456.5, "dist_total_m": 36800, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50330, -1.97110] },
+      "properties": { "sol": 2900, "site": "Marathon Valley south", "drive": 520, "x_local": 1377.4, "y_local": -1474.3, "dist_total_m": 37800, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50290, -1.97150] },
+      "properties": { "sol": 3000, "site": "Endeavour rim south traverse", "drive": 532, "x_local": 1401.0, "y_local": -1498.0, "dist_total_m": 38600, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50240, -1.97200] },
+      "properties": { "sol": 3150, "site": "Spirit of Opportunity", "drive": 548, "x_local": 1430.6, "y_local": -1527.6, "dist_total_m": 39500, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50200, -1.97240] },
+      "properties": { "sol": 3300, "site": "Lewis and Clark Gap", "drive": 562, "x_local": 1454.2, "y_local": -1551.3, "dist_total_m": 40200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50160, -1.97290] },
+      "properties": { "sol": 3450, "site": "Cape Tribulation", "drive": 576, "x_local": 1477.8, "y_local": -1580.9, "dist_total_m": 40900, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50120, -1.97340] },
+      "properties": { "sol": 3600, "site": "Wharton Ridge", "drive": 590, "x_local": 1501.5, "y_local": -1610.5, "dist_total_m": 41500, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50090, -1.97380] },
+      "properties": { "sol": 3750, "site": "Orion Crater area", "drive": 604, "x_local": 1519.2, "y_local": -1634.2, "dist_total_m": 42000, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50080, -1.97390] },
+      "properties": { "sol": 3800, "site": "Marathon distance achieved", "drive": 610, "x_local": 1525.1, "y_local": -1640.1, "dist_total_m": 42195, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50050, -1.97420] },
+      "properties": { "sol": 3900, "site": "South of Cape Tribulation", "drive": 620, "x_local": 1542.8, "y_local": -1657.9, "dist_total_m": 42600, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.50020, -1.97460] },
+      "properties": { "sol": 4000, "site": "Cape Byron area", "drive": 632, "x_local": 1560.5, "y_local": -1681.6, "dist_total_m": 43000, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49990, -1.97500] },
+      "properties": { "sol": 4100, "site": "Hubbard Crater", "drive": 644, "x_local": 1578.3, "y_local": -1705.3, "dist_total_m": 43400, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49960, -1.97530] },
+      "properties": { "sol": 4200, "site": "Endeavour western rim", "drive": 654, "x_local": 1596.0, "y_local": -1723.1, "dist_total_m": 43800, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49930, -1.97570] },
+      "properties": { "sol": 4300, "site": "Approaching Perseverance Valley", "drive": 664, "x_local": 1613.7, "y_local": -1746.8, "dist_total_m": 44200, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49910, -1.97600] },
+      "properties": { "sol": 4400, "site": "Near Perseverance Valley", "drive": 674, "x_local": 1625.5, "y_local": -1764.5, "dist_total_m": 44550, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49890, -1.97630] },
+      "properties": { "sol": 4540, "site": "Perseverance Valley", "drive": 686, "x_local": 1637.4, "y_local": -1782.3, "dist_total_m": 44850, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49880, -1.97640] },
+      "properties": { "sol": 4600, "site": "Perseverance Valley descent", "drive": 692, "x_local": 1643.3, "y_local": -1788.2, "dist_total_m": 44950, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49870, -1.97660] },
+      "properties": { "sol": 4700, "site": "Perseverance Valley middle", "drive": 700, "x_local": 1649.2, "y_local": -1800.1, "dist_total_m": 45020, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49865, -1.97670] },
+      "properties": { "sol": 4800, "site": "Perseverance Valley lower", "drive": 706, "x_local": 1652.1, "y_local": -1806.0, "dist_total_m": 45070, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49860, -1.97678] },
+      "properties": { "sol": 4900, "site": "Perseverance Valley study", "drive": 712, "x_local": 1655.1, "y_local": -1810.7, "dist_total_m": 45110, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49857, -1.97682] },
+      "properties": { "sol": 5000, "site": "Perseverance Valley lower section", "drive": 718, "x_local": 1656.8, "y_local": -1813.1, "dist_total_m": 45140, "rover": "Opportunity" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.49855, -1.97685] },
+      "properties": { "sol": 5111, "site": "Perseverance Valley (last contact)", "drive": 722, "x_local": 1658.0, "y_local": -1814.9, "dist_total_m": 45160, "rover": "Opportunity" }
+    }
+  ]
 }
