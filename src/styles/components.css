@@ -157,6 +157,87 @@
   font-weight: 500;
 }
 
+/* --- Sol History --- */
+.sol-history {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sol-history-card {
+  padding: 6px 8px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.8rem;
+}
+
+.sol-history-card strong {
+  font-size: 0.85rem;
+}
+
+.sol-history-date {
+  color: #888;
+  font-size: 0.7rem;
+}
+
+.sol-history-status {
+  color: #aaa;
+}
+
+.sol-history-desc {
+  color: #ccc;
+  font-style: italic;
+  font-size: 0.75rem;
+}
+
+/* --- DSN Status --- */
+.dsn-widget {
+  font-size: 0.8rem;
+}
+
+.dsn-signal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #222;
+}
+
+.dsn-signal.active {
+  color: #4caf50;
+}
+
+.dsn-antenna {
+  font-weight: 600;
+  min-width: 50px;
+}
+
+.dsn-target {
+  color: #aaa;
+  flex: 1;
+}
+
+.dsn-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+  animation: dsn-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dsn-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.dsn-idle, .dsn-offline {
+  color: #666;
+  font-style: italic;
+}
+
 /* --- Responsive --- */
 @media (max-width: 768px) {
   .stat-grid {

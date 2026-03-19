@@ -1,0 +1,40 @@
+{
+  "perseverance": [
+    { "sol": 0, "title": "Landing", "description": "Perseverance lands in Jezero Crater via Skycrane" },
+    { "sol": 12, "title": "First Drive", "description": "Drives 6.5 meters in first test drive" },
+    { "sol": 58, "title": "Ingenuity First Flight", "description": "Ingenuity makes history as first powered flight on another planet" },
+    { "sol": 164, "title": "First Sample", "description": "Successfully cores first rock sample 'Montdenier'" },
+    { "sol": 371, "title": "Delta Front Arrival", "description": "Reaches the ancient river delta in Jezero Crater" },
+    { "sol": 482, "title": "First Depot Sample", "description": "Drops first sample tube at Three Forks depot" },
+    { "sol": 738, "title": "10 km Milestone", "description": "Passes 10 kilometers total distance driven" },
+    { "sol": 1000, "title": "Sol 1000", "description": "Reaches 1000 sols on Mars, still exploring the delta" }
+  ],
+  "curiosity": [
+    { "sol": 0, "title": "Landing", "description": "Curiosity lands in Gale Crater via Skycrane" },
+    { "sol": 29, "title": "First Drive", "description": "Drives 16 meters to test mobility system" },
+    { "sol": 182, "title": "First Drill", "description": "Drills into 'John Klein' rock — first interior sample on Mars" },
+    { "sol": 526, "title": "Mount Sharp Base", "description": "Arrives at the base of Mount Sharp (Aeolis Mons)" },
+    { "sol": 1000, "title": "Sol 1000", "description": "Celebrates 1000 sols exploring Gale Crater" },
+    { "sol": 1809, "title": "Vera Rubin Ridge", "description": "Begins exploration of Vera Rubin Ridge" },
+    { "sol": 2540, "title": "Clay Unit", "description": "Explores clay-bearing unit with strongest clay signals" },
+    { "sol": 3000, "title": "Sol 3000", "description": "Passes 3000 sols, ascending Mount Sharp" }
+  ],
+  "opportunity": [
+    { "sol": 0, "title": "Landing", "description": "Opportunity bounces to a stop inside Eagle Crater" },
+    { "sol": 1, "title": "Hole in One", "description": "Lands directly next to exposed bedrock — 'hole in one'" },
+    { "sol": 315, "title": "Endurance Crater", "description": "Enters and explores 130m wide Endurance Crater" },
+    { "sol": 952, "title": "Victoria Crater", "description": "Arrives at 800m diameter Victoria Crater" },
+    { "sol": 2681, "title": "Marathon", "description": "Completes first marathon distance (42.195 km) on another world" },
+    { "sol": 4540, "title": "Perseverance Valley", "description": "Begins exploring Perseverance Valley on Endeavour rim" },
+    { "sol": 5111, "title": "Last Contact", "description": "Last communication before global dust storm ends mission" }
+  ],
+  "spirit": [
+    { "sol": 0, "title": "Landing", "description": "Spirit lands in Gusev Crater" },
+    { "sol": 12, "title": "First Drive", "description": "Drives off the lander platform onto Martian soil" },
+    { "sol": 156, "title": "Columbia Hills", "description": "Reaches the Columbia Hills after 3.2 km drive across plains" },
+    { "sol": 489, "title": "Summit", "description": "Reaches summit of Husband Hill in Columbia Hills" },
+    { "sol": 779, "title": "Home Plate", "description": "Arrives at Home Plate volcanic formation" },
+    { "sol": 1892, "title": "Stuck", "description": "Gets stuck in soft soil at 'Troy' — becomes stationary science platform" },
+    { "sol": 2210, "title": "Last Contact", "description": "Last communication received from Spirit" }
+  ]
+}

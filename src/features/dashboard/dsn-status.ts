@@ -5,18 +5,8 @@
 
 const DSN_URL = "https://eyes.nasa.gov/dsn/data/dsn.xml";
 
-/** Mars-related spacecraft identifiers in DSN data */
-const MARS_SPACECRAFT: Record<string, string> = {
-  "168": "Mars Odyssey",
-  "174": "Mars Express",
-  "76": "MRO",
-  "253": "MAVEN",
-  "168": "Mars Odyssey",
-  "253": "MAVEN",
-};
-
-/** Known rover-related DSN spacecraft names (partial matches) */
-const ROVER_NAMES_DSN = ["M20", "MSL", "PERSEVERANCE", "CURIOSITY", "MRO"];
+/** Known Mars-related DSN spacecraft names (partial matches) */
+const MARS_NAMES_DSN = ["M20", "MSL", "PERSEVERANCE", "CURIOSITY", "MRO", "MAVEN", "ODYSSEY", "MEX"];
 
 interface DSNDish {
   name: string;
@@ -56,7 +46,7 @@ async function fetchAndRender(): Promise<void> {
     const dishes = parseDSNXml(text);
     const marsSignals = dishes.filter((d) =>
       d.targets.some((t) =>
-        ROVER_NAMES_DSN.some((name) => t.toUpperCase().includes(name))
+        MARS_NAMES_DSN.some((name) => t.toUpperCase().includes(name))
       )
     );
 

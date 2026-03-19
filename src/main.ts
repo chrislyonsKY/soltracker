@@ -28,6 +28,9 @@ import { initMarsClock } from "./features/dashboard/mars-clock.ts";
 import { startCinematicFlythrough, stopCinematicFlythrough, isCinematicRunning } from "./features/traverse/cinematic-flythrough.ts";
 import { initUrlState } from "./features/url-state.ts";
 import { initIngenuity, setIngenuityVisibility } from "./features/traverse/ingenuity.ts";
+import { computeDriveAnalytics, renderDriveAnalytics } from "./features/dashboard/drive-analytics.ts";
+import { initDSNStatus } from "./features/dashboard/dsn-status.ts";
+import { initSolCounter } from "./features/dashboard/sol-counter.ts";
 import { ROVERS, ROVER_NAMES, getNasaApiKey, setNasaApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
 
@@ -102,7 +105,30 @@ async function bootstrap(): Promise<void> {
     initIngenuity(view);
     initIngenuityToggle();
 
-    // Step 15: Wire settings dialog
+    // Step 15: Compute drive analytics (F10) for all loaded rovers
+    for (const [rover, data] of traverses) {
+      if (data.features.length > 0) {
+        computeDriveAnalytics(rover, data.features);
+      }
+    }
+    renderDriveAnalytics("perseverance");
+
+    // Re-render analytics on rover change
+    document.addEventListener("animation-state-change", ((e: CustomEvent) => {
+      const { activeRover } = e.detail as { activeRover: RoverName };
+      renderDriveAnalytics(activeRover);
+      // Also rebuild elevation profile for new rover
+      const roverData = traverses.get(activeRover);
+      if (roverData) buildElevationProfile(activeRover, roverData.features);
+    }) as EventListener);
+
+    // Step 16: Initialize DSN live status (F11)
+    initDSNStatus();
+
+    // Step 17: Initialize "This Sol in History" (F16)
+    initSolCounter();
+
+    // Step 17: Wire settings dialog
     initSettingsDialog();
 
   } catch (err) {
