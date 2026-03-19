@@ -21,11 +21,19 @@ import type { RoverName } from "../../types.ts";
  * NASA-hosted GLB model URLs for each rover.
  * Perseverance: ~11.7MB, Curiosity: ~11.9MB, MER (Spirit/Opportunity): ~11.9MB
  */
+/**
+ * Local GLB model paths (served from public/models/).
+ * Downloaded from NASA to avoid CORS issues with mars.nasa.gov.
+ * Original sources:
+ * - Perseverance: https://mars.nasa.gov/system/resources/gltf_files/25042_Perseverance.glb
+ * - Curiosity: https://mars.nasa.gov/system/resources/gltf_files/24584_Curiosity_static.glb
+ * - MER: https://mars.nasa.gov/system/resources/gltf_files/24883_MER_static.glb
+ */
 const ROVER_MODEL_URLS: Record<RoverName, string> = {
-  perseverance: "https://mars.nasa.gov/system/resources/gltf_files/25042_Perseverance.glb",
-  curiosity: "https://mars.nasa.gov/system/resources/gltf_files/24584_Curiosity_static.glb",
-  opportunity: "https://mars.nasa.gov/system/resources/gltf_files/24883_MER_static.glb",
-  spirit: "https://mars.nasa.gov/system/resources/gltf_files/24883_MER_static.glb",
+  perseverance: "./models/perseverance.glb",
+  curiosity: "./models/curiosity.glb",
+  opportunity: "./models/mer.glb",
+  spirit: "./models/mer.glb",
 };
 
 /** Rover height in meters for model scaling */

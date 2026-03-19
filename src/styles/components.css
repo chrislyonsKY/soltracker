@@ -1,129 +1,40 @@
-/* SolTracker — Feature-specific component styles */
+/* SolTracker — Component styles (NASA mission control aesthetic) */
 
-/* --- Dashboard Stats Grid --- */
+/* --- Dashboard Stats --- */
 .stat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  padding: 4px 0;
+  gap: 8px 16px;
 }
 
 .stat-item {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .stat-label {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #888;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
 }
 
 .stat-value {
-  font-size: 0.9rem;
-  color: #e0e0e0;
-  font-weight: 500;
-}
-
-/* --- Weather --- */
-.weather-note {
-  font-size: 0.7rem;
-  color: #666;
-  margin: 0 0 8px;
-  font-style: italic;
-}
-
-/* --- Timeline Controls --- */
-#timeline-container {
-  padding: 6px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.timeline-controls {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.sol-display {
-  color: #ccc;
-  white-space: nowrap;
-  min-width: 130px;
   font-size: 0.85rem;
-  text-align: right;
+  color: var(--text-primary);
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
 
-/* --- Photo Gallery --- */
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 4px;
-  max-height: 300px;
-  overflow-y: auto;
-  padding: 4px 0;
-}
-
-.photo-thumb {
-  position: relative;
-  cursor: pointer;
-  border-radius: 4px;
-  overflow: hidden;
-  aspect-ratio: 1;
-  background: #1a1a1a;
-}
-
-.photo-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s;
-}
-
-.photo-thumb:hover img {
-  transform: scale(1.05);
-}
-
-.photo-thumb:focus-visible {
-  outline: 2px solid var(--calcite-color-brand, #007ac2);
-  outline-offset: 2px;
-}
-
-.photo-cam-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  color: #ccc;
-  font-size: 0.6rem;
-  padding: 2px 4px;
-  text-align: center;
-  pointer-events: none;
-}
-
-.photo-empty,
-.photo-loading,
-.photo-error {
-  color: #666;
-  font-size: 0.8rem;
-  text-align: center;
-  padding: 16px 0;
-  grid-column: 1 / -1;
-}
-
-.photo-error {
-  color: #e74c3c;
+.stat-value.highlight {
+  color: var(--nasa-cyan);
 }
 
 /* --- Mars Clock --- */
 .mars-clock-widget {
-  font-family: "SF Mono", "Fira Code", monospace;
+  font-family: var(--font-mono);
   font-size: 0.85rem;
 }
 
@@ -135,10 +46,11 @@
 }
 
 .clock-label {
-  font-size: 0.65rem;
+  font-size: 0.55rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #666;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
   min-width: 36px;
 }
 
@@ -147,50 +59,67 @@
 }
 
 .earth-time {
-  color: #888;
+  color: var(--text-secondary);
 }
 
 .sol-now {
   font-size: 0.75rem;
   text-align: center;
-  margin-top: 4px;
-  font-weight: 500;
+  margin-top: 6px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* --- Weather --- */
+.weather-note {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 8px;
 }
 
 /* --- Sol History --- */
 .sol-history {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .sol-history-card {
-  padding: 6px 8px;
-  background: #1a1a1a;
-  border-radius: 4px;
+  padding: 6px 10px;
+  background: var(--bg-card);
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  transition: background 0.15s;
+}
+
+.sol-history-card:hover {
+  background: var(--bg-card-hover);
 }
 
 .sol-history-card strong {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  color: var(--text-primary);
 }
 
 .sol-history-date {
-  color: #888;
-  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
 }
 
 .sol-history-status {
-  color: #aaa;
+  color: var(--text-secondary);
 }
 
 .sol-history-desc {
-  color: #ccc;
+  color: var(--text-secondary);
   font-style: italic;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
 /* --- DSN Status --- */
@@ -202,30 +131,35 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 0;
-  border-bottom: 1px solid #222;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.dsn-signal.active {
+.dsn-signal.active .dsn-antenna {
   color: #4caf50;
 }
 
 .dsn-antenna {
+  font-family: var(--font-mono);
   font-weight: 600;
-  min-width: 50px;
+  font-size: 0.75rem;
+  min-width: 55px;
+  color: var(--text-secondary);
 }
 
 .dsn-target {
-  color: #aaa;
+  color: var(--text-muted);
   flex: 1;
+  font-size: 0.72rem;
 }
 
 .dsn-indicator {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #4caf50;
-  animation: dsn-pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.5);
+  animation: dsn-pulse 2s ease-in-out infinite;
 }
 
 @keyframes dsn-pulse {
@@ -234,8 +168,70 @@
 }
 
 .dsn-idle, .dsn-offline {
-  color: #666;
-  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+/* --- Photo Gallery --- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 4px;
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-card) transparent;
+}
+
+.photo-thumb {
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: var(--bg-card);
+}
+
+.photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.photo-thumb:hover img {
+  transform: scale(1.08);
+}
+
+.photo-thumb:focus-visible {
+  outline: 2px solid var(--nasa-cyan);
+  outline-offset: 1px;
+}
+
+.photo-cam-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  padding: 2px 4px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.photo-empty, .photo-loading, .photo-error {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 20px 0;
+  grid-column: 1 / -1;
+}
+
+.photo-error {
+  color: var(--nasa-red);
 }
 
 /* --- Panoramas --- */
@@ -247,24 +243,25 @@
 
 .panorama-card {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
-  border-radius: 4px;
-  padding: 4px;
-  transition: background 0.2s;
+  border-radius: 6px;
+  padding: 6px;
+  transition: background 0.15s;
 }
 
 .panorama-card:hover {
-  background: #222;
+  background: var(--bg-card-hover);
 }
 
 .panorama-thumb-wrap {
   position: relative;
   width: 80px;
-  height: 50px;
+  height: 48px;
   flex-shrink: 0;
   border-radius: 4px;
   overflow: hidden;
+  background: var(--bg-card);
 }
 
 .panorama-thumb-wrap img {
@@ -277,29 +274,31 @@
   position: absolute;
   bottom: 2px;
   left: 2px;
-  background: rgba(0,0,0,0.7);
-  color: #ccc;
-  font-size: 0.55rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
   padding: 1px 4px;
   border-radius: 2px;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .panorama-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 .panorama-info strong {
-  font-size: 0.85rem;
-  color: #e0e0e0;
+  font-size: 0.82rem;
+  color: var(--text-primary);
 }
 
 .panorama-info span {
-  color: #888;
-  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-size: 0.65rem;
 }
 
 /* --- Raw Images --- */
@@ -308,16 +307,18 @@
   gap: 6px;
   overflow-x: auto;
   padding: 4px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-card) transparent;
 }
 
 .raw-image-thumb {
   position: relative;
-  width: 70px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
   flex-shrink: 0;
   border-radius: 4px;
   overflow: hidden;
-  background: #111;
+  background: var(--bg-card);
 }
 
 .raw-image-thumb img {
@@ -330,34 +331,58 @@
   position: absolute;
   top: 2px;
   right: 2px;
-  background: #e74c3c;
+  background: var(--nasa-red);
   color: white;
-  font-size: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
   font-weight: 700;
   padding: 1px 3px;
   border-radius: 2px;
+  letter-spacing: 0.08em;
 }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
+  :root {
+    --panel-width: 100%;
+  }
+
+  .dashboard-panel {
+    position: fixed;
+    top: auto;
+    right: 0;
+    bottom: var(--timeline-height);
+    left: 0;
+    width: 100%;
+    max-height: 50vh;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .rover-selector {
+    top: calc(var(--header-height) + 8px);
+    left: 8px;
+  }
+
+  .rover-pill {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
   .stat-grid {
     grid-template-columns: 1fr;
-  }
-
-  .photo-grid {
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    max-height: 200px;
-  }
-
-  #timeline-container {
-    flex-wrap: wrap;
-    padding: 4px 8px;
   }
 }
 
 /* --- Reduced Motion --- */
 @media (prefers-reduced-motion: reduce) {
-  .photo-thumb img {
+  .photo-thumb img,
+  .panorama-card,
+  .sol-history-card,
+  .rover-pill {
     transition: none;
+  }
+
+  .dsn-indicator {
+    animation: none;
   }
 }

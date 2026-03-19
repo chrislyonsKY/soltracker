@@ -8,217 +8,285 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>" />
   </head>
   <body class="calcite-mode-dark">
-    <calcite-shell>
-      <!-- Left: Action bar with rover selector + tools -->
-      <calcite-shell-panel slot="panel-start" display-mode="float">
-        <calcite-action-bar slot="action-bar" expand-disabled>
-          <calcite-action-group label="Rovers">
-            <calcite-action text="Perseverance" icon="pin" data-rover="perseverance" active></calcite-action>
-            <calcite-action text="Curiosity" icon="pin" data-rover="curiosity"></calcite-action>
-            <calcite-action text="Opportunity" icon="pin" data-rover="opportunity"></calcite-action>
-            <calcite-action text="Spirit" icon="pin" data-rover="spirit"></calcite-action>
-            <calcite-action text="Ingenuity" icon="altitude" id="btn-ingenuity" style="--calcite-color-brand: #9B59B6;"></calcite-action>
-          </calcite-action-group>
-          <calcite-action-group label="Layers">
-            <calcite-action text="Samples" icon="point" id="btn-samples"></calcite-action>
-            <calcite-action text="Geology Layers" icon="layers" id="btn-geology"></calcite-action>
-            <calcite-action text="Earth Scale" icon="measure" id="btn-earth-scale"></calcite-action>
-          </calcite-action-group>
-          <calcite-action-group label="Views">
-            <calcite-action text="Panoramas" icon="image" id="btn-panoramas"></calcite-action>
-            <calcite-action text="Raw Images" icon="camera-flash" id="btn-raw-images"></calcite-action>
-          </calcite-action-group>
-          <calcite-action-group slot="actions-end">
-            <calcite-action text="Settings" icon="gear" id="btn-settings"></calcite-action>
-            <calcite-action text="About" icon="information" id="btn-about"></calcite-action>
-          </calcite-action-group>
-        </calcite-action-bar>
 
-        <!-- Expandable panels triggered by action bar -->
-        <calcite-panel heading="Geology Layers" id="geology-panel" closed>
-          <div id="overlay-controls" style="display: flex; flex-direction: column; gap: 8px; padding: 8px;"></div>
-        </calcite-panel>
+    <!-- Full-screen Mars Globe -->
+    <div id="scene-container" style="position: fixed; inset: 0;">
+      <div class="sol-loading" id="loading-indicator">LOADING MARS</div>
+      <arcgis-scene></arcgis-scene>
+    </div>
 
-        <calcite-panel heading="Earth Scale Comparison" id="earth-scale-panel" closed>
-          <div style="padding: 8px;">
-            <calcite-select id="region-select" label="Region" scale="s">
-              <calcite-option value="" selected>Choose a region...</calcite-option>
-              <calcite-option value="kentucky">Kentucky</calcite-option>
-              <calcite-option value="texas">Texas</calcite-option>
-              <calcite-option value="france">France</calcite-option>
-              <calcite-option value="japan">Japan (Honshu)</calcite-option>
-            </calcite-select>
-            <calcite-button id="btn-place-region" appearance="solid" kind="brand" scale="s" width="full" style="margin-top: 8px;">
-              Place at Rover Position
-            </calcite-button>
-            <calcite-button id="btn-clear-region" appearance="outline" kind="neutral" scale="s" width="full" style="margin-top: 4px;">
-              Clear
-            </calcite-button>
+    <!-- Top Header Bar -->
+    <header class="sol-header">
+      <div class="sol-header-brand">
+        <span class="sol-header-title">SolTracker</span>
+        <span class="sol-header-subtitle">Mars Rover Explorer</span>
+      </div>
+      <div class="sol-header-clock" id="mars-clock"></div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="tool-btn" id="btn-settings" title="Settings" aria-label="Settings">
+          <calcite-icon icon="gear" scale="s"></calcite-icon>
+        </button>
+        <button class="tool-btn" id="btn-share" title="Share" aria-label="Copy share link">
+          <calcite-icon icon="share" scale="s"></calcite-icon>
+        </button>
+      </div>
+    </header>
+
+    <!-- Left: Rover Selector Pills -->
+    <nav class="rover-selector" aria-label="Rover selection">
+      <button class="rover-pill active" data-rover="perseverance">
+        <span class="rover-pill-dot" style="background: #E03C31;"></span>
+        <span class="rover-pill-name">Perseverance</span>
+      </button>
+      <button class="rover-pill" data-rover="curiosity">
+        <span class="rover-pill-dot" style="background: #3A7BD5;"></span>
+        <span class="rover-pill-name">Curiosity</span>
+      </button>
+      <button class="rover-pill" data-rover="opportunity">
+        <span class="rover-pill-dot" style="background: #D4A843;"></span>
+        <span class="rover-pill-name">Opportunity</span>
+      </button>
+      <button class="rover-pill" data-rover="spirit">
+        <span class="rover-pill-dot" style="background: #2E8B57;"></span>
+        <span class="rover-pill-name">Spirit</span>
+      </button>
+      <button class="rover-pill" id="btn-ingenuity">
+        <span class="rover-pill-dot" style="background: #9B59B6;"></span>
+        <span class="rover-pill-name">Ingenuity</span>
+      </button>
+    </nav>
+
+    <!-- Left: Tool Buttons -->
+    <div class="tool-buttons">
+      <button class="tool-btn" id="btn-samples" title="Sample Tubes">
+        <calcite-icon icon="point" scale="s"></calcite-icon>
+      </button>
+      <button class="tool-btn" id="btn-geology" title="Geology Layers">
+        <calcite-icon icon="layers" scale="s"></calcite-icon>
+      </button>
+      <button class="tool-btn" id="btn-earth-scale" title="Earth Scale">
+        <calcite-icon icon="measure" scale="s"></calcite-icon>
+      </button>
+      <button class="tool-btn" id="btn-panoramas" title="Panoramas">
+        <calcite-icon icon="image" scale="s"></calcite-icon>
+      </button>
+      <button class="tool-btn" id="btn-raw-images" title="Raw Images">
+        <calcite-icon icon="camera-flash" scale="s"></calcite-icon>
+      </button>
+    </div>
+
+    <!-- Right: Dashboard Panel -->
+    <aside class="dashboard-panel" id="dashboard-panel">
+      <!-- Rover Stats -->
+      <div class="dash-section" id="stats-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title accent">Mission Status</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-label">Rover</span>
+            <span class="stat-value highlight" id="dashboard-rover-name">Perseverance</span>
           </div>
-        </calcite-panel>
-
-        <calcite-panel heading="Panoramas" id="panorama-panel" closed>
-          <div id="panorama-list" class="panorama-list" style="padding: 8px;"></div>
-        </calcite-panel>
-
-        <calcite-panel heading="Latest Raw Images" id="raw-images-panel" closed>
-          <div id="raw-images" style="padding: 8px;"></div>
-        </calcite-panel>
-      </calcite-shell-panel>
-
-      <!-- Center: Mars 3D Globe -->
-      <div id="scene-container" style="width: 100%; height: 100%; position: relative;">
-        <div class="sol-loading" id="loading-indicator">Loading Mars...</div>
-        <arcgis-scene></arcgis-scene>
+          <div class="stat-item">
+            <span class="stat-label">Current Sol</span>
+            <span class="stat-value" id="dashboard-sol">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Earth Date</span>
+            <span class="stat-value" id="dashboard-date">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Distance</span>
+            <span class="stat-value" id="dashboard-distance">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Status</span>
+            <span class="stat-value" id="dashboard-status">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Location</span>
+            <span class="stat-value" id="dashboard-location">--</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Right: Dashboard panel -->
-      <calcite-shell-panel slot="panel-end" display-mode="float" width-scale="m">
-        <calcite-panel heading="Mission Dashboard" id="dashboard-panel">
-          <calcite-block heading="Mars Clock" open id="clock-block">
-            <calcite-icon icon="clock" slot="icon" scale="s"></calcite-icon>
-            <div id="mars-clock" class="mars-clock-widget"></div>
-          </calcite-block>
-
-          <calcite-block heading="Rover Stats" open id="stats-block">
-            <calcite-icon icon="exploration" slot="icon" scale="s"></calcite-icon>
-            <div class="stat-grid">
-              <div class="stat-item">
-                <span class="stat-label">Rover</span>
-                <span class="stat-value" id="dashboard-rover-name">Perseverance</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Current Sol</span>
-                <span class="stat-value" id="dashboard-sol">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Earth Date</span>
-                <span class="stat-value" id="dashboard-date">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Distance</span>
-                <span class="stat-value" id="dashboard-distance">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Status</span>
-                <span class="stat-value" id="dashboard-status">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Location</span>
-                <span class="stat-value" id="dashboard-location">--</span>
-              </div>
-            </div>
-          </calcite-block>
-
-          <calcite-block heading="Mars Weather" collapsible id="weather-block">
-            <calcite-icon icon="partly-cloudy" slot="icon" scale="s"></calcite-icon>
-            <p class="weather-note">Gale Crater (Curiosity REMS)</p>
-            <div class="stat-grid">
-              <div class="stat-item">
-                <span class="stat-label">Temperature</span>
-                <span class="stat-value" id="weather-temp">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Pressure</span>
-                <span class="stat-value" id="weather-pressure">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Opacity</span>
-                <span class="stat-value" id="weather-opacity">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Season</span>
-                <span class="stat-value" id="weather-season">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Sunrise</span>
-                <span class="stat-value" id="weather-sunrise">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Sunset</span>
-                <span class="stat-value" id="weather-sunset">--</span>
-              </div>
-            </div>
-          </calcite-block>
-
-          <calcite-block heading="This Sol in History" collapsible id="history-block">
-            <calcite-icon icon="calendar" slot="icon" scale="s"></calcite-icon>
-            <div id="sol-history" class="sol-history"></div>
-          </calcite-block>
-
-          <calcite-block heading="Drive Analytics" collapsible id="analytics-block">
-            <calcite-icon icon="graph-bar" slot="icon" scale="s"></calcite-icon>
-            <div id="drive-analytics"></div>
-          </calcite-block>
-
-          <calcite-block heading="DSN Status" collapsible id="dsn-block">
-            <calcite-icon icon="satellite" slot="icon" scale="s"></calcite-icon>
-            <div id="dsn-status" class="dsn-widget">
-              <span class="dsn-offline">Connecting...</span>
-            </div>
-          </calcite-block>
-
-          <calcite-block heading="Elevation Profile" collapsible id="elevation-block">
-            <calcite-icon icon="altitude" slot="icon" scale="s"></calcite-icon>
-            <div id="elevation-chart" style="width: 100%; min-height: 120px;"></div>
-            <div class="stat-grid" style="margin-top: 8px;">
-              <div class="stat-item">
-                <span class="stat-label">Min</span>
-                <span class="stat-value" id="elev-min">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Max</span>
-                <span class="stat-value" id="elev-max">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Ascent</span>
-                <span class="stat-value" id="elev-ascent">--</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Descent</span>
-                <span class="stat-value" id="elev-descent">--</span>
-              </div>
-            </div>
-          </calcite-block>
-
-          <calcite-block heading="Photos" collapsible id="photos-block">
-            <calcite-icon icon="camera" slot="icon" scale="s"></calcite-icon>
-            <div id="camera-filter-container">
-              <calcite-select id="camera-select" label="Camera" scale="s">
-                <calcite-option value="all" selected>All Cameras</calcite-option>
-              </calcite-select>
-            </div>
-            <div id="photo-gallery" class="photo-grid">
-              <p class="photo-empty">Select a sol to view photos</p>
-            </div>
-          </calcite-block>
-        </calcite-panel>
-      </calcite-shell-panel>
-
-      <!-- Bottom: Sol timeline -->
-      <calcite-shell-panel slot="panel-bottom" display-mode="float" layout="horizontal">
-        <div id="timeline-container">
-          <div class="timeline-controls">
-            <calcite-button id="btn-step-back" icon-start="chevron-left" appearance="transparent" kind="neutral" scale="s" aria-label="Previous sol"></calcite-button>
-            <calcite-button id="btn-play" icon-start="play" appearance="transparent" kind="neutral" scale="s" aria-label="Play animation"></calcite-button>
-            <calcite-button id="btn-step-forward" icon-start="chevron-right" appearance="transparent" kind="neutral" scale="s" aria-label="Next sol"></calcite-button>
-            <calcite-select id="speed-select" label="Speed" scale="s" style="width: 80px;">
-              <calcite-option value="1" selected>1x</calcite-option>
-              <calcite-option value="5">5x</calcite-option>
-              <calcite-option value="10">10x</calcite-option>
-              <calcite-option value="50">50x</calcite-option>
-            </calcite-select>
-            <calcite-button id="btn-follow" icon-start="gps-on" appearance="transparent" kind="neutral" scale="s" aria-label="Toggle camera follow" active></calcite-button>
-            <calcite-button id="btn-cinematic" icon-start="video" appearance="transparent" kind="neutral" scale="s" aria-label="Cinematic fly-through"></calcite-button>
-            <calcite-button id="btn-share" icon-start="share" appearance="transparent" kind="neutral" scale="s" aria-label="Copy share link"></calcite-button>
-          </div>
-          <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label-handles style="flex: 1;"></calcite-slider>
-          <span id="sol-display" class="sol-display" aria-live="polite">Sol 0 / --</span>
+      <!-- Mars Weather -->
+      <div class="dash-section" id="weather-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title">Mars Weather</span>
+          <span class="weather-note">REMS / Gale Crater</span>
         </div>
-      </calcite-shell-panel>
-    </calcite-shell>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-label">Temp</span>
+            <span class="stat-value" id="weather-temp">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Pressure</span>
+            <span class="stat-value" id="weather-pressure">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Opacity</span>
+            <span class="stat-value" id="weather-opacity">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Season</span>
+            <span class="stat-value" id="weather-season">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Sunrise</span>
+            <span class="stat-value" id="weather-sunrise">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Sunset</span>
+            <span class="stat-value" id="weather-sunset">--</span>
+          </div>
+        </div>
+      </div>
 
-    <!-- BYOK API Key Dialog -->
+      <!-- DSN -->
+      <div class="dash-section" id="dsn-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title">Deep Space Network</span>
+        </div>
+        <div id="dsn-status" class="dsn-widget">
+          <span class="dsn-offline">Connecting...</span>
+        </div>
+      </div>
+
+      <!-- Elevation Profile -->
+      <div class="dash-section" id="elevation-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title">Elevation Profile</span>
+        </div>
+        <div id="elevation-chart" style="width: 100%; min-height: 100px;"></div>
+        <div class="stat-grid" style="margin-top: 6px;">
+          <div class="stat-item">
+            <span class="stat-label">Min</span>
+            <span class="stat-value" id="elev-min">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Max</span>
+            <span class="stat-value" id="elev-max">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Ascent</span>
+            <span class="stat-value" id="elev-ascent">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Descent</span>
+            <span class="stat-value" id="elev-descent">--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drive Analytics -->
+      <div class="dash-section" id="analytics-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title">Drive Analytics</span>
+        </div>
+        <div id="drive-analytics"></div>
+      </div>
+
+      <!-- Sol History -->
+      <div class="dash-section" id="history-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title">This Sol in History</span>
+        </div>
+        <div id="sol-history" class="sol-history"></div>
+      </div>
+
+      <!-- Photos -->
+      <div class="dash-section" id="photos-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title">Rover Photos</span>
+        </div>
+        <div id="camera-filter-container" style="margin-bottom: 8px;">
+          <calcite-select id="camera-select" label="Camera" scale="s">
+            <calcite-option value="all" selected>All Cameras</calcite-option>
+          </calcite-select>
+        </div>
+        <div id="photo-gallery" class="photo-grid">
+          <p class="photo-empty">Scrub timeline to load photos</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Bottom Timeline -->
+    <div class="sol-timeline">
+      <div class="timeline-controls">
+        <button class="timeline-btn" id="btn-step-back" aria-label="Previous sol">
+          <calcite-icon icon="chevron-left" scale="s"></calcite-icon>
+        </button>
+        <button class="timeline-btn play-btn" id="btn-play" aria-label="Play animation">
+          <calcite-icon icon="play" scale="s" id="play-icon"></calcite-icon>
+        </button>
+        <button class="timeline-btn" id="btn-step-forward" aria-label="Next sol">
+          <calcite-icon icon="chevron-right" scale="s"></calcite-icon>
+        </button>
+        <select class="speed-select" id="speed-select" aria-label="Playback speed">
+          <option value="1" selected>1x</option>
+          <option value="5">5x</option>
+          <option value="10">10x</option>
+          <option value="50">50x</option>
+        </select>
+        <button class="timeline-btn active" id="btn-follow" aria-label="Camera follow" title="Camera follow">
+          <calcite-icon icon="gps-on" scale="s"></calcite-icon>
+        </button>
+        <button class="timeline-btn" id="btn-cinematic" aria-label="Cinematic mode" title="Cinematic fly-through">
+          <calcite-icon icon="video" scale="s"></calcite-icon>
+        </button>
+      </div>
+      <calcite-slider id="sol-slider" min="0" max="1000" value="0" step="1" label-handles style="flex: 1;"></calcite-slider>
+      <span id="sol-display" class="sol-display" aria-live="polite">SOL 0 / --</span>
+    </div>
+
+    <!-- Floating panels (toggled by tool buttons) -->
+    <div id="geology-panel" class="dashboard-panel" style="display:none; right: auto; left: 56px; width: 240px; top: auto; bottom: 80px;">
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title accent">Geology Layers</span>
+        </div>
+        <div id="overlay-controls" style="display: flex; flex-direction: column; gap: 6px;"></div>
+      </div>
+    </div>
+
+    <div id="earth-scale-panel" class="dashboard-panel" style="display:none; right: auto; left: 56px; width: 240px; top: auto; bottom: 80px;">
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title accent">Earth Scale</span>
+        </div>
+        <select class="speed-select" id="region-select" style="width: 100%; margin-bottom: 8px;">
+          <option value="">Choose a region...</option>
+          <option value="kentucky">Kentucky</option>
+          <option value="texas">Texas</option>
+          <option value="france">France</option>
+          <option value="japan">Japan (Honshu)</option>
+        </select>
+        <button class="tool-btn" id="btn-place-region" style="width: 100%; height: auto; padding: 6px; font-size: 0.7rem;">Place at Rover</button>
+        <button class="tool-btn" id="btn-clear-region" style="width: 100%; height: auto; padding: 6px; font-size: 0.7rem; margin-top: 4px;">Clear</button>
+      </div>
+    </div>
+
+    <div id="panorama-panel" class="dashboard-panel" style="display:none; right: auto; left: 56px; width: 280px; top: auto; bottom: 80px;">
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title accent">Panoramas</span>
+        </div>
+        <div id="panorama-list" class="panorama-list"></div>
+      </div>
+    </div>
+
+    <div id="raw-images-panel" class="dashboard-panel" style="display:none; right: auto; left: 56px; width: 280px; top: auto; bottom: 80px;">
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title accent">Latest from Mars</span>
+        </div>
+        <div id="raw-images"></div>
+      </div>
+    </div>
+
+    <!-- Settings Dialog -->
     <calcite-dialog id="settings-dialog" heading="Settings" kind="brand" scale="m">
       <calcite-label>
         NASA API Key
@@ -231,11 +299,11 @@
       <calcite-button slot="footer-start" id="btn-close-settings" appearance="outline" kind="neutral">Close</calcite-button>
     </calcite-dialog>
 
-    <!-- Photo Lightbox Dialog -->
+    <!-- Photo Lightbox -->
     <calcite-dialog id="photo-dialog" heading="Rover Photo" scale="l" width-scale="l">
       <div id="photo-lightbox" style="text-align: center;">
         <img id="lightbox-img" src="" alt="Mars rover photo" style="max-width: 100%; max-height: 70vh; border-radius: 4px;" />
-        <div id="lightbox-meta" style="margin-top: 8px; color: #aaa;"></div>
+        <div id="lightbox-meta" style="margin-top: 8px; color: var(--text-secondary);"></div>
       </div>
     </calcite-dialog>
 

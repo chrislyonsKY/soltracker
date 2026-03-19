@@ -173,45 +173,32 @@ const roverVisibility = new Map<RoverName, boolean>(
  * Wire the action bar rover buttons to toggle visibility and switch active rover.
  */
 function initRoverToggle(): void {
-  const actions = document.querySelectorAll<HTMLElement>("calcite-action[data-rover]");
-  for (const action of actions) {
-    const rover = action.dataset.rover as RoverName;
+  const pills = document.querySelectorAll<HTMLElement>(".rover-pill[data-rover]");
+  for (const pill of pills) {
+    const rover = pill.dataset.rover as RoverName;
     if (!rover) continue;
 
-    const config = ROVERS[rover];
-    action.style.setProperty("--calcite-color-brand", config.color);
-
-    action.addEventListener("click", () => {
+    pill.addEventListener("click", () => {
       const current = roverVisibility.get(rover) ?? true;
-
-      // If clicking the already-active rover, toggle its visibility
       const animState = getAnimationState();
+      const config = ROVERS[rover];
+
       if (animState.activeRover === rover) {
+        // Toggle visibility of already-active rover
         const next = !current;
         roverVisibility.set(rover, next);
         setRoverVisibility(rover, next);
         setRoverModelVisibility(rover, next);
-        if (next) {
-          action.removeAttribute("appearance");
-        } else {
-          action.setAttribute("appearance", "transparent");
-        }
+        pill.classList.toggle("hidden-rover", !next);
       } else {
         // Switch active rover
         setActiveRover(rover);
         updateSliderRange();
         updateSolDisplay(getAnimationState());
-
-        // Fly to rover's landing site
         flyTo(config.landingLat, config.landingLon, 500_000).catch(() => {});
 
-        // Update active indicator on all actions
-        for (const a of actions) {
-          if (a.dataset.rover === rover) {
-            a.setAttribute("active", "");
-          } else {
-            a.removeAttribute("active");
-          }
+        for (const p of pills) {
+          p.classList.toggle("active", p.dataset.rover === rover);
         }
       }
     });
@@ -253,7 +240,7 @@ function initAnimationControls(): void {
     }
   });
 
-  speedSelect?.addEventListener("calciteSelectChange", () => {
+  speedSelect?.addEventListener("change", () => {
     const val = Number(speedSelect.value) as 1 | 5 | 10 | 50;
     setSpeed(val);
   });
@@ -320,9 +307,12 @@ function updateSliderRange(): void {
 
 /** Update play/pause button icon. */
 function updatePlayButton(isPlaying: boolean): void {
+  const icon = document.getElementById("play-icon");
   const btn = document.getElementById("btn-play");
+  if (icon) {
+    icon.setAttribute("icon", isPlaying ? "pause" : "play");
+  }
   if (btn) {
-    btn.setAttribute("icon-start", isPlaying ? "pause" : "play");
     btn.setAttribute("aria-label", isPlaying ? "Pause animation" : "Play animation");
   }
 }
@@ -430,42 +420,38 @@ function initSampleToggle(): void {
   });
 }
 
-/** Toggle geology panel from action bar. */
-function initGeologyToggle(): void {
-  const btn = document.getElementById("btn-geology");
-  const panel = document.getElementById("geology-panel");
+/** Toggle a floating panel from a tool button. */
+function togglePanel(btnId: string, panelId: string): void {
+  const btn = document.getElementById(btnId);
+  const panel = document.getElementById(panelId);
   if (!btn || !panel) return;
   btn.addEventListener("click", () => {
-    const isClosed = panel.hasAttribute("closed");
-    if (isClosed) {
-      panel.removeAttribute("closed");
-      btn.setAttribute("active", "");
-    } else {
-      panel.setAttribute("closed", "");
-      btn.removeAttribute("active");
+    const isHidden = panel.style.display === "none" || !panel.style.display;
+    // Close all other floating panels first
+    document.querySelectorAll<HTMLElement>("#geology-panel, #earth-scale-panel, #panorama-panel, #raw-images-panel")
+      .forEach((p) => { p.style.display = "none"; });
+    document.querySelectorAll<HTMLElement>(".tool-buttons .tool-btn")
+      .forEach((b) => b.classList.remove("active"));
+
+    if (isHidden) {
+      panel.style.display = "block";
+      btn.classList.add("active");
     }
   });
 }
 
+/** Wire geology panel toggle. */
+function initGeologyToggle(): void {
+  togglePanel("btn-geology", "geology-panel");
+}
+
 /** Wire Earth scale comparison controls. */
 function initEarthScaleControls(): void {
-  const btn = document.getElementById("btn-earth-scale");
-  const panel = document.getElementById("earth-scale-panel");
+  togglePanel("btn-earth-scale", "earth-scale-panel");
+
   const placeBtn = document.getElementById("btn-place-region");
   const clearBtn = document.getElementById("btn-clear-region");
   const regionSelect = document.getElementById("region-select") as HTMLSelectElement | null;
-
-  btn?.addEventListener("click", () => {
-    if (!panel) return;
-    const isClosed = panel.hasAttribute("closed");
-    if (isClosed) {
-      panel.removeAttribute("closed");
-      btn.setAttribute("active", "");
-    } else {
-      panel.setAttribute("closed", "");
-      btn.removeAttribute("active");
-    }
-  });
 
   placeBtn?.addEventListener("click", () => {
     const regionId = regionSelect?.value;
@@ -478,38 +464,14 @@ function initEarthScaleControls(): void {
   clearBtn?.addEventListener("click", () => clearEarthScale());
 }
 
-/** Toggle panorama panel from action bar. */
+/** Wire panorama panel toggle. */
 function initPanoramaToggle(): void {
-  const btn = document.getElementById("btn-panoramas");
-  const panel = document.getElementById("panorama-panel");
-  if (!btn || !panel) return;
-  btn.addEventListener("click", () => {
-    const isClosed = panel.hasAttribute("closed");
-    if (isClosed) {
-      panel.removeAttribute("closed");
-      btn.setAttribute("active", "");
-    } else {
-      panel.setAttribute("closed", "");
-      btn.removeAttribute("active");
-    }
-  });
+  togglePanel("btn-panoramas", "panorama-panel");
 }
 
-/** Toggle raw images panel from action bar. */
+/** Wire raw images panel toggle. */
 function initRawImagesToggle(): void {
-  const btn = document.getElementById("btn-raw-images");
-  const panel = document.getElementById("raw-images-panel");
-  if (!btn || !panel) return;
-  btn.addEventListener("click", () => {
-    const isClosed = panel.hasAttribute("closed");
-    if (isClosed) {
-      panel.removeAttribute("closed");
-      btn.setAttribute("active", "");
-    } else {
-      panel.setAttribute("closed", "");
-      btn.removeAttribute("active");
-    }
-  });
+  togglePanel("btn-raw-images", "raw-images-panel");
 }
 
 bootstrap();

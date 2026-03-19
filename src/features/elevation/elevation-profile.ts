@@ -97,16 +97,54 @@ function renderProfile(samples: ElevationSample[]): void {
     }
   }
 
+  // Generate grid lines
+  const gridLines: string[] = [];
+  const numGridY = 4;
+  for (let i = 0; i <= numGridY; i++) {
+    const y = pad.top + (plotH / numGridY) * i;
+    gridLines.push(`<line x1="${pad.left}" y1="${y}" x2="${pad.left + plotW}" y2="${y}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`);
+  }
+
   container.innerHTML = `
-    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-      <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + plotH}" stroke="#333" stroke-width="1"/>
-      <line x1="${pad.left}" y1="${pad.top + plotH}" x2="${pad.left + plotW}" y2="${pad.top + plotH}" stroke="#333" stroke-width="1"/>
-      <path d="${pathD} L${toX(maxD)},${pad.top + plotH} L${pad.left},${pad.top + plotH} Z" fill="#4fc3f7" opacity="0.1"/>
-      <path d="${pathD}" fill="none" stroke="#4fc3f7" stroke-width="1.5" opacity="0.8"/>
-      <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="4" fill="#ff5722" stroke="white" stroke-width="1.5"/>
-      <text x="${pad.left - 4}" y="${pad.top + 4}" fill="#888" font-size="9" text-anchor="end">${maxE.toFixed(0)}m</text>
-      <text x="${pad.left - 4}" y="${pad.top + plotH}" fill="#888" font-size="9" text-anchor="end">${minE.toFixed(0)}m</text>
-      <text x="${pad.left + plotW}" y="${pad.top + plotH + 14}" fill="#888" font-size="9" text-anchor="end">${maxD.toFixed(1)} km</text>
+    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="display:block;">
+      <defs>
+        <linearGradient id="elev-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#02bfe7" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#02bfe7" stop-opacity="0.02"/>
+        </linearGradient>
+        <linearGradient id="elev-line-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0b3d91"/>
+          <stop offset="50%" stop-color="#02bfe7"/>
+          <stop offset="100%" stop-color="#00a6d2"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- Grid -->
+      ${gridLines.join("")}
+      <line x1="${pad.left}" y1="${pad.top + plotH}" x2="${pad.left + plotW}" y2="${pad.top + plotH}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- Fill under curve -->
+      <path d="${pathD} L${toX(maxD)},${pad.top + plotH} L${pad.left},${pad.top + plotH} Z" fill="url(#elev-grad)"/>
+
+      <!-- Elevation line with glow -->
+      <path d="${pathD}" fill="none" stroke="url(#elev-line-grad)" stroke-width="2" filter="url(#glow)"/>
+      <path d="${pathD}" fill="none" stroke="url(#elev-line-grad)" stroke-width="1.5"/>
+
+      <!-- Current position -->
+      <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="5" fill="none" stroke="#02bfe7" stroke-width="1.5" opacity="0.4" filter="url(#glow)"/>
+      <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="3" fill="#02bfe7" stroke="rgba(0,0,0,0.5)" stroke-width="1"/>
+
+      <!-- Labels -->
+      <text x="${pad.left - 4}" y="${pad.top + 6}" fill="rgba(255,255,255,0.3)" font-size="8" font-family="SF Mono, monospace" text-anchor="end">${maxE.toFixed(0)}m</text>
+      <text x="${pad.left - 4}" y="${pad.top + plotH + 2}" fill="rgba(255,255,255,0.3)" font-size="8" font-family="SF Mono, monospace" text-anchor="end">${minE.toFixed(0)}m</text>
+      <text x="${pad.left + plotW}" y="${pad.top + plotH + 14}" fill="rgba(255,255,255,0.3)" font-size="8" font-family="SF Mono, monospace" text-anchor="end">${maxD.toFixed(1)} km</text>
     </svg>
   `;
 }

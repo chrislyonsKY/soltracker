@@ -1,7 +1,44 @@
-/* SolTracker — Global styles */
+/* SolTracker — NASA-inspired dark theme */
 
 :root {
-  --sol-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  /* NASA Design System colors */
+  --nasa-blue: #0b3d91;
+  --nasa-blue-light: #105bd8;
+  --nasa-cyan: #02bfe7;
+  --nasa-cyan-dark: #00a6d2;
+  --nasa-red: #dd361c;
+  --nasa-gold: #ff9d1e;
+
+  /* Dark background palette */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-panel: #14141c;
+  --bg-card: #1a1a24;
+  --bg-card-hover: #22222e;
+  --bg-surface: #1e1e28;
+
+  /* Text */
+  --text-primary: #e8e8ed;
+  --text-secondary: #9a9aad;
+  --text-muted: #5e5e72;
+  --text-accent: var(--nasa-cyan);
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.1);
+
+  /* Fonts */
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "JetBrains Mono", monospace;
+
+  /* Sizing */
+  --header-height: 44px;
+  --timeline-height: 56px;
+  --panel-width: 340px;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html,
@@ -11,11 +48,17 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: var(--sol-font-family);
+  font-family: var(--font-display);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Calcite shell fills viewport */
+/* Override Calcite dark mode with NASA palette */
 calcite-shell {
+  --calcite-color-brand: var(--nasa-cyan-dark);
+  --calcite-color-background: var(--bg-primary);
   width: 100%;
   height: 100%;
 }
@@ -27,18 +70,312 @@ arcgis-scene {
   height: 100%;
 }
 
-/* Loading indicator */
+/* --- Top Header Bar --- */
+.sol-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.sol-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sol-header-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.sol-header-subtitle {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.sol-header-clock {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.sol-header-clock .mars-time {
+  color: var(--nasa-cyan);
+}
+
+/* --- Loading indicator --- */
 .sol-loading {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #ccc;
-  font-size: 1.2rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   z-index: 10;
   pointer-events: none;
 }
 
 .sol-loading.hidden {
   display: none;
+}
+
+/* --- Rover Selector Pills (left side) --- */
+.rover-selector {
+  position: absolute;
+  top: calc(var(--header-height) + 12px);
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 90;
+}
+
+.rover-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(20, 20, 28, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.rover-pill:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-medium);
+}
+
+.rover-pill.active {
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.rover-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rover-pill-name {
+  flex: 1;
+}
+
+.rover-pill.hidden-rover {
+  opacity: 0.4;
+}
+
+/* --- Tool Buttons (left side, below rovers) --- */
+.tool-buttons {
+  position: absolute;
+  bottom: calc(var(--timeline-height) + 20px);
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 90;
+}
+
+.tool-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(20, 20, 28, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 0.7rem;
+}
+
+.tool-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.tool-btn.active {
+  background: var(--nasa-blue);
+  border-color: var(--nasa-blue-light);
+  color: white;
+}
+
+/* --- Right Dashboard Panel --- */
+.dashboard-panel {
+  position: absolute;
+  top: calc(var(--header-height) + 12px);
+  right: 12px;
+  bottom: calc(var(--timeline-height) + 12px);
+  width: var(--panel-width);
+  background: rgba(14, 14, 20, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 90;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-card) transparent;
+}
+
+.dashboard-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dashboard-panel::-webkit-scrollbar-thumb {
+  background: var(--bg-card);
+  border-radius: 2px;
+}
+
+/* --- Dashboard Sections --- */
+.dash-section {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dash-section:last-child {
+  border-bottom: none;
+}
+
+.dash-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dash-section-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dash-section-title.accent {
+  color: var(--nasa-cyan);
+}
+
+/* --- Bottom Timeline --- */
+.sol-timeline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--timeline-height);
+  background: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 10px;
+  z-index: 100;
+}
+
+.timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.timeline-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.timeline-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.timeline-btn.active {
+  color: var(--nasa-cyan);
+}
+
+.timeline-btn.play-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--nasa-cyan-dark);
+  color: white;
+  border: none;
+}
+
+.timeline-btn.play-btn:hover {
+  background: var(--nasa-cyan);
+}
+
+.sol-display {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  min-width: 140px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Speed selector --- */
+.speed-select {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.speed-select:focus {
+  border-color: var(--nasa-cyan-dark);
 }
