@@ -1,7 +1,7 @@
 {
   "name": "soltracker",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "3D Mars rover tracking application",
   "type": "module",
   "scripts": {

@@ -7,6 +7,7 @@ import type { SolChangeDetail } from "../types.ts";
 import { ROVERS } from "../config.ts";
 
 const ANTHROPIC_KEY_STORAGE = "soltracker_anthropic_api_key";
+const BUILTIN_ANTHROPIC_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY ?? "";
 const narratorCache = new Map<string, string>();
 
 /**
@@ -30,10 +31,9 @@ export function initAINarrator(): void {
 
     const key = getAnthropicKey();
     if (!key) {
-      container.innerHTML = '<span class="narrator-hint">Set your Anthropic API key in Settings</span>';
+      container.innerHTML = '<span class="narrator-hint">AI Narrator requires an Anthropic API key in Settings</span>';
       return;
     }
-
     container.innerHTML = '<span class="narrator-loading">Generating narration...</span>';
 
     try {
@@ -94,8 +94,8 @@ async function generateNarration(apiKey: string, detail: SolChangeDetail): Promi
 }
 
 /** Get Anthropic API key from localStorage. */
-export function getAnthropicKey(): string | null {
-  return localStorage.getItem(ANTHROPIC_KEY_STORAGE);
+export function getAnthropicKey(): string {
+  return localStorage.getItem(ANTHROPIC_KEY_STORAGE) ?? BUILTIN_ANTHROPIC_KEY;
 }
 
 /** Set Anthropic API key in localStorage. */
