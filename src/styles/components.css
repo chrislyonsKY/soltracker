@@ -544,12 +544,81 @@ button.panorama-card {
   100% { background-position: -200% 0; }
 }
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  :root {
-    --panel-width: 100%;
+/* --- Responsive: Tablet (< 1024px) --- */
+@media (max-width: 1024px) {
+  .dashboard-panel {
+    width: 300px;
   }
 
+  .basemap-toggle-container {
+    right: 312px;
+  }
+}
+
+/* --- Responsive: Mobile (< 768px) --- */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 40px;
+    --timeline-height: 50px;
+  }
+
+  /* Header: compact */
+  .sol-header {
+    padding: 0 10px;
+  }
+
+  .sol-header-title {
+    font-size: 0.8rem;
+  }
+
+  .sol-header-subtitle {
+    display: none;
+  }
+
+  .sol-header-clock {
+    font-size: 0.7rem;
+    gap: 8px;
+  }
+
+  /* Rover pills: horizontal row at top */
+  .rover-selector {
+    top: calc(var(--header-height) + 6px);
+    left: 6px;
+    right: 6px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .rover-pill {
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    border-radius: 14px;
+  }
+
+  .rover-pill-name {
+    display: none;
+  }
+
+  .rover-pill-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Tool buttons: horizontal row */
+  .tool-buttons {
+    bottom: calc(var(--timeline-height) + 8px);
+    left: 6px;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .tool-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Dashboard: bottom sheet */
   .dashboard-panel {
     position: fixed;
     top: auto;
@@ -557,22 +626,97 @@ button.panorama-card {
     bottom: var(--timeline-height);
     left: 0;
     width: 100%;
-    max-height: 50vh;
+    max-height: 45vh;
+    border-radius: 12px 12px 0 0;
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+  }
+
+  /* Timeline: compact */
+  .sol-timeline {
+    padding: 0 8px;
+    gap: 6px;
+  }
+
+  .timeline-controls {
+    gap: 1px;
+  }
+
+  .timeline-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .timeline-btn.play-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .speed-select {
+    width: 55px;
+    font-size: 0.65rem;
+  }
+
+  .sol-display {
+    font-size: 0.7rem;
+    min-width: 100px;
+  }
+
+  /* Basemap toggle: bottom center */
+  .basemap-toggle-container {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(var(--timeline-height) + 55px);
+  }
+
+  /* Photo grid: smaller */
+  .photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+    max-height: 150px;
+  }
+
+  /* Chat: smaller */
+  .chat-messages {
+    max-height: 120px;
+  }
+
+  /* Floating panels: full width at bottom */
+  #geology-panel,
+  #earth-scale-panel,
+  #panorama-panel,
+  #raw-images-panel {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: var(--timeline-height) !important;
+    width: 100% !important;
+    max-height: 40vh;
     border-radius: 12px 12px 0 0;
   }
+}
 
-  .rover-selector {
-    top: calc(var(--header-height) + 8px);
-    left: 8px;
+/* --- Responsive: Small Mobile (< 480px) --- */
+@media (max-width: 480px) {
+  .sol-header-clock {
+    display: none;
   }
 
-  .rover-pill {
-    padding: 4px 10px;
-    font-size: 0.7rem;
+  .dashboard-panel {
+    max-height: 40vh;
   }
 
   .stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .sol-history {
+    max-height: 120px;
+    overflow-y: auto;
   }
 }
 
@@ -585,7 +729,8 @@ button.panorama-card {
     transition: none;
   }
 
-  .dsn-indicator {
+  .dsn-indicator,
+  .narrator-loading {
     animation: none;
   }
 }
