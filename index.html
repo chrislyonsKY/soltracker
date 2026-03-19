@@ -202,6 +202,25 @@
         <div id="sol-history" class="sol-history"></div>
       </div>
 
+      <!-- Mission Chat -->
+      <div class="dash-section" id="chat-section">
+        <div class="dash-section-header">
+          <span class="dash-section-title accent">Mission Chat</span>
+        </div>
+        <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
+          <div class="chat-msg chat-assistant" data-msg-id="msg-welcome">
+            <span class="chat-role">SolTracker</span>
+            <span class="chat-text">Ask me anything about Mars rovers, missions, or what you're seeing on the globe.</span>
+          </div>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chat-input" class="chat-input" placeholder="Ask about Mars missions..." aria-label="Chat message input" />
+          <button class="chat-send-btn" id="chat-send" aria-label="Send message" title="Send">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M1 1l12 6-12 6V8l8-1-8-1z"/></svg>
+          </button>
+        </div>
+      </div>
+
       <!-- AI Narrator -->
       <div class="dash-section" id="narrator-section">
         <div class="dash-section-header">

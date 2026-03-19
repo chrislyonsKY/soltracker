@@ -41,6 +41,7 @@ import { initBasemapToggle } from "./features/mars-globe/basemap-toggle.ts";
 import { initAboutDialog } from "./features/about-dialog.ts";
 import { initAINarrator, setAnthropicKey } from "./features/ai-narrator.ts";
 import { playBlip, playStart, playStop, playSwitch, toggleSound, isSoundEnabled } from "./features/sound-design.ts";
+import { initMissionChat } from "./features/mission-chat.ts";
 import { ROVERS, ROVER_NAMES, setNasaApiKey, getEsriApiKey, setEsriApiKey } from "./config.ts";
 import type { RoverName, AnimationState } from "./types.ts";
 
@@ -165,8 +166,9 @@ async function bootstrap(): Promise<void> {
     // Step 23: Basemap toggle (F1 enhancement)
     initBasemapToggle(view);
 
-    // Step 24: AI Science Narrator (F18)
+    // Step 24: AI Science Narrator (F18) + Mission Chat
     initAINarrator();
+    initMissionChat();
 
     // Step 25: About dialog
     initAboutDialog();

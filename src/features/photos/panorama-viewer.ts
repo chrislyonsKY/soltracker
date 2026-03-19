@@ -1,107 +1,108 @@
 /**
  * F21: Mars panorama viewer.
- * Curated panoramic mosaics from rover cameras displayed in a lightbox.
+ * Fetches notable photos via the NASA Mars Photos API for key mission sols.
+ * Uses the same API as the photo gallery — URLs from this API work reliably.
  */
+import { getPhotos } from "../../services/nasa-api.ts";
+import type { NASAPhoto, RoverName } from "../../types.ts";
 
-interface PanoramaEntry {
-  id: string;
-  rover: string;
+interface PanoramaSol {
+  rover: RoverName;
   sol: number;
   title: string;
-  description: string;
-  imageUrl: string;
-  camera: string;
+  camera?: string;
 }
 
-/**
- * Curated notable panoramas from NASA/JPL published mosaics.
- */
-const PANORAMAS: PanoramaEntry[] = [
-  {
-    id: "p1",
-    rover: "perseverance",
-    sol: 3,
-    title: "First 360 Panorama",
-    description: "Perseverance's first high-definition panoramic view of Jezero Crater, captured by Mastcam-Z.",
-    imageUrl: "https://mars.nasa.gov/mars2020-raw-images/pub/ods/surface/sol/00003/ids/edr/browse/zcam/ZL0_0003_0667456955_000FDR_N0010052AUT_04096_034085J01.png",
-    camera: "Mastcam-Z",
-  },
-  {
-    id: "p2",
-    rover: "curiosity",
-    sol: 2946,
-    title: "Glen Torridon Panorama",
-    description: "Composite panorama from Glen Torridon, stitched from Mastcam images at the clay-bearing unit.",
-    imageUrl: "https://mars.nasa.gov/msl-raw-images/msss/02946/mcam/2946ML0153290011200897C00_DXXX.jpg",
-    camera: "Mastcam",
-  },
-  {
-    id: "p3",
-    rover: "curiosity",
-    sol: 1000,
-    title: "Sol 1000 Selfie",
-    description: "Curiosity's Sol 1000 self-portrait at Pahrump Hills, Gale Crater.",
-    imageUrl: "https://mars.nasa.gov/msl-raw-images/msss/01000/mcam/1000MR0044630360503668C00_DXXX.jpg",
-    camera: "MAHLI",
-  },
-  {
-    id: "p4",
-    rover: "perseverance",
-    sol: 198,
-    title: "Jezero Delta View",
-    description: "View of the ancient river delta from the crater floor, showing layered sedimentary rocks.",
-    imageUrl: "https://mars.nasa.gov/mars2020-raw-images/pub/ods/surface/sol/00198/ids/edr/browse/zcam/ZR0_0198_0681736426_028ECM_N0070000ZCAM08198_034085J01.png",
-    camera: "Mastcam-Z",
-  },
+/** Notable sols with significant imagery. */
+const NOTABLE_SOLS: PanoramaSol[] = [
+  { rover: "perseverance", sol: 3, title: "First images from Jezero", camera: "NAVCAM_LEFT" },
+  { rover: "perseverance", sol: 198, title: "Delta front approach", camera: "MCZ_RIGHT" },
+  { rover: "perseverance", sol: 650, title: "Three Forks depot area" },
+  { rover: "curiosity", sol: 1000, title: "Pahrump Hills, Sol 1000", camera: "MAST" },
+  { rover: "curiosity", sol: 2946, title: "Glen Torridon clay unit", camera: "MAST" },
+  { rover: "curiosity", sol: 3000, title: "Mount Sharp ascent" },
 ];
 
+let loadedPhotos: Array<{ meta: PanoramaSol; photo: NASAPhoto }> = [];
+
 /**
- * Initialize the panorama viewer with keyboard-accessible cards.
+ * Initialize the panorama viewer.
+ * Fetches a sample photo from each notable sol.
  */
-export function initPanoramaViewer(): void {
+export async function initPanoramaViewer(): Promise<void> {
   const container = document.getElementById("panorama-list");
   if (!container) return;
 
-  container.innerHTML = PANORAMAS.map((p) => `
-    <button class="panorama-card" data-pano-id="${p.id}" type="button" aria-label="View ${p.title} panorama from ${p.rover}">
+  container.innerHTML = '<span class="narrator-loading">Loading panoramas...</span>';
+
+  const results: Array<{ meta: PanoramaSol; photo: NASAPhoto }> = [];
+
+  // Fetch one photo from each notable sol (don't await all — show as they come)
+  const promises = NOTABLE_SOLS.map(async (sol) => {
+    try {
+      const photos = await getPhotos(sol.rover, sol.sol, sol.camera);
+      if (photos.length > 0) {
+        results.push({ meta: sol, photo: photos[0] });
+      }
+    } catch {
+      // Skip sols that fail
+    }
+  });
+
+  await Promise.allSettled(promises);
+  loadedPhotos = results;
+  renderPanoramas(container);
+}
+
+/** Render panorama cards from loaded photos. */
+function renderPanoramas(container: HTMLElement): void {
+  if (loadedPhotos.length === 0) {
+    container.innerHTML = '<span class="narrator-hint">No panoramas available</span>';
+    return;
+  }
+
+  container.innerHTML = loadedPhotos.map((item) => `
+    <button class="panorama-card" data-img-src="${item.photo.img_src}" type="button"
+      aria-label="View ${item.meta.title} from ${item.meta.rover}">
       <div class="panorama-thumb-wrap">
-        <img src="${p.imageUrl}" alt="${p.title} - ${p.description}" loading="lazy" />
-        <span class="panorama-rover-badge">${p.rover}</span>
+        <img src="${item.photo.img_src}" alt="${item.meta.title}" loading="lazy" />
+        <span class="panorama-rover-badge">${item.meta.rover}</span>
       </div>
       <div class="panorama-info">
-        <strong>${p.title}</strong>
-        <span>Sol ${p.sol} — ${p.camera}</span>
+        <strong>${item.meta.title}</strong>
+        <span>Sol ${item.meta.sol} — ${item.photo.camera.full_name}</span>
       </div>
     </button>
   `).join("");
 
   container.addEventListener("click", (e) => {
-    const card = (e.target as HTMLElement).closest("[data-pano-id]") as HTMLElement | null;
+    const card = (e.target as HTMLElement).closest("[data-img-src]") as HTMLElement | null;
     if (!card) return;
-    const pano = PANORAMAS.find((p) => p.id === card.dataset.panoId);
-    if (pano) openPanorama(pano);
+    const imgSrc = card.dataset.imgSrc ?? "";
+    const title = card.querySelector("strong")?.textContent ?? "Panorama";
+    const info = card.querySelector(".panorama-info span")?.textContent ?? "";
+    openLightbox(imgSrc, title, info);
   });
 }
 
-/** Open a panorama in the photo dialog. */
-function openPanorama(pano: PanoramaEntry): void {
+/** Open image in lightbox dialog. */
+function openLightbox(imgSrc: string, title: string, info: string): void {
   const dialog = document.getElementById("photo-dialog");
   const img = document.getElementById("lightbox-img") as HTMLImageElement | null;
   const meta = document.getElementById("lightbox-meta");
 
-  if (dialog) dialog.setAttribute("heading", pano.title);
+  if (dialog) dialog.setAttribute("heading", title);
   if (img) {
-    img.src = pano.imageUrl;
-    img.alt = `${pano.title} - ${pano.description}`;
+    img.src = imgSrc;
+    img.alt = title;
   }
-  if (meta) {
-    meta.textContent = `${pano.camera} | Sol ${pano.sol} | ${pano.rover} | ${pano.description}`;
-  }
-
+  if (meta) meta.textContent = info;
   dialog?.setAttribute("open", "");
 }
 
-/** Get panoramas for a specific rover. */
-export function getPanoramasForRover(rover: string): PanoramaEntry[] {
-  return PANORAMAS.filter((p) => p.rover === rover);
+/** Get loaded panorama photos for a specific rover. */
+export function getPanoramasForRover(rover: string): NASAPhoto[] {
+  return loadedPhotos
+    .filter((item) => item.meta.rover === rover)
+    .map((item) => item.photo);
 }
